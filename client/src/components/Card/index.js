@@ -1,9 +1,22 @@
 import React from "react"; //imports react from the react library
 import { ListItem } from "../List"; //imports the functionality of grand-child.ListItem component of sibling List
 import { Row, Col } from "../Grid";// imports   ''      ''      '' grandchildren.Row&.Col     ''    Grid
+import Form from "../Form";
 import "./style.css";//imports stylesheet from same directorory
 
-export default function Card ({ title, abstract, confidence, uri, image, Button }) { //Card consists of deconstructed { props body }
+export default class Card extends React.Component { //Card consists of deconstructed { props body }//{ title, abstract, confidence, uri, image, SaveButton }
+state = { 
+  turnOnDeckForm: false
+};
+
+handleDeckNameClick = event => {// this is a handled event from the button that submits the form to be written for the database as an 
+  this.setState({
+    turnOnDeckForm: true
+  });
+}; //closes the handled event triggered by the form submitted via the button set to trigger the API call  aka the promise known as the Get:getCards()fxn
+
+render() {
+  const  { id, title, abstract, confidence, uri, image, SaveButton, handleInputChange, handleCardSave, q }  = this.props; //bc we have not fxn, all attr are gotten from pty; will add components to Form to round out dyanmic formation.
   return (  //fxnCard returns the follwoing render from the page
     <ListItem> {/*jsx transpiled by babel continued throughout .js pages rendering html<-->js; //imports the functionality of grand-child.ListItem component of sibling List*/}
       <Row className="flex-wrap-reverse"> {/* calls in a bootrrap funciton*/}
@@ -12,11 +25,22 @@ export default function Card ({ title, abstract, confidence, uri, image, Button 
           {abstract && <h5 className="font-italic">{abstract}</h5>} {/* abstract updated to set state here */}
         </Col>{/*col fxn called in from said import above*/}
         <Col size="md-4">{/*bootstrap set size on the fxn import Col */}
-          <div className="btn-container"> {/*button for the div container set by bootstrap for looks */}
-            <a className="btn btn-light" target="_blank" rel="noopener noreferrer" href={uri}>{/*a light button color set fort he anchor tack for _private class protected _blank*/}
+          <div className="btn-container"> {/*Savebutton for the div container set by bootstrap for looks */}
+            <a className="btn btn-light" target="_blank" rel="noopener noreferrer" href={uri}>{/*a light Savebutton color set fort he anchor tack for _private class protected _blank*/}
               View {/* text will be rendered on dom upon creation from virtualdom ot dom window */}
             </a> {/*closes the anchor tag */}
-            <Button /> {/* renders a dyanmic react button tag */}
+              {this.state.turnOnDeckForm? <Form
+                handleInputChange={ handleInputChange} //<b: handlers; from the form
+                handleCardSave={ () => { handleCardSave(id, q) }}   //<b:   "  " : form the handler
+                q={q} //q is the query input by the user
+              /> : null}
+            <button
+                onClick={() => this.handleDeckNameClick()}//button handler
+                className="btn btn-primary ml-2"
+              >
+                Save
+              </button>
+             {/* renders a dyanmic react Savebutton tag */}
           </div> {/* closing div tag */}
         </Col> {/* closing grandchild column tag */}
       </Row> {/* closing granchild row tag */}
@@ -35,4 +59,5 @@ export default function Card ({ title, abstract, confidence, uri, image, Button 
       </Row>{/* closing granchild row tag */}
     </ListItem> // ListItem from App.granchild closing tag closing the JSX portion
   );
+  }
 }

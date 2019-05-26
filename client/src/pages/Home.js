@@ -2,7 +2,7 @@ import React, { Component } from "react"; //library import as a component of the
 import Jumbotron from "../components/Jumbotron";//lns 2-7 w8-9 being app.grandchildren component import of said routes (may actually be a great granchild due to it being app/constructor/pages/compt)
 import Card from "../components/Card"; 
 import Deck from "../components/Deck"; //component that will dynamically render the cards being filled w API.data
-import Form from "../components/Form/indexFinexes"; // parent Form Object that will house all of the components housed w/in
+import Form from "../components/Form/index"; // parent Form Object that will house all of the components housed w/in
 //import Card from "../components/Deck"; //will be the data structure that will be rendered from the input from the use as the card constructor fxn
 import Footer from "../components/Footer"; //Footer being used from the Constructo's Form Object class to be rendered dynamically on the App as it renders
 import API from "../utils/API"; //calls form the API.js file housed in the utils from the routes for the information 'gotten' from the JSON.data parsed AJAX call
@@ -13,7 +13,8 @@ class Home extends Component { // function calls and defines the Constructor 'cl
   state = { //delineates the state origin of the App Constructor with giving it child.props: 
     cards: [], //this will be the indexed collection of cards set to an array of User["input"]
     q: "", //this is the query of the API call for the cards.data db table population; this si the input fieldo's original state set to an empty field string ""
-    message: "Search For A Card To Begin!" //original state is diplay an input of text action from the user as a hard coded message
+    message: "Search For A Card To Begin!", //original state is diplay an input of text action from the user as a hard coded message
+    turnOnDeckForm: false
   };
 
   handleInputChange = event => { //this is a handler based on the text input from the user <button> click.event.  Can also be an onkeyup/onkeydown/onkeypress, etc. event
@@ -26,7 +27,7 @@ class Home extends Component { // function calls and defines the Constructor 'cl
   getCards = () => { //this is fucntional promise to execute when information is needed
    //console.log(this.state.q, API);
    try {
-     if ( this.state.q.length == 0) throw new Error ("No Searched Card Data Found, Try a Different Query"); 
+     if ( this.state.q.length === 0) throw new Error ("No Searched Card Data Found, Try a Different Query"); 
    } 
    catch ( Err ) {
     this.setState({//lexical $this is now set at the non-fxnl, 'error caught' state
@@ -57,7 +58,8 @@ class Home extends Component { // function calls and defines the Constructor 'cl
   }; //closes the handled event triggered by the form submitted via the button set to trigger the API call  aka the promise known as the Get:getCards()fxn
 
   handleCardSave = id => {//this is a fxn block for the handler set to retriecve isolated instances of the cards delineated access though 'id' in the parsed info fed from the API to the db
-    const card = this.state.cards.find(card => card.id === id); //a constant variable set to card at the lexically scoped $this to be assigned to the state of the cards collection to iterate through the .find/found (cards collection) as a promise to be found by the id of said cards housed throughout that cllx
+  console.log(id, "Running handleCardSv Ln60");  
+  const card = this.state.cards.find(card => card.id === id); //a constant variable set to card at the lexically scoped $this to be assigned to the state of the cards collection to iterate through the .find/found (cards collection) as a promise to be found by the id of said cards housed throughout that cllx
 
     API.saveCard({ //the API call set in the API.js file will be setting the function to be executed as ssavecards open to receiving the follwoing key:value pairs as received and parsed via JSON
       dandelionid: card.id, //googleId key set to the value card.id with card beign the table and the id being the identifier asssigned to is mirroring the key value pair so as to serve as a foeign key down the line
@@ -99,17 +101,29 @@ class Home extends Component { // function calls and defines the Constructor 'cl
                   {this.state.cards.map(card => ( // this will iterate and 'map', hitting every endpt on the list for the card rendered object(s)
                     <Card 
                       key={card.id} //sets the key for us with the api info received from the json: card.id
+                      id = {card.id}
                       title={card.title}// received from the api cards render delving into the depths of the endpoint's object parameter all constructed with the value card.volumeInfo
                       abstract={card.abstract}//this next subparameter hit was for abstract
                       image={card.image} //link is provided to us by the following dot notated field infoLink
                       confidence={card.confidence}//yields the probability of the search being qualitative in result
                       uri={card.uri}//gives a link
-                      Button={() => ( //Button handler to have the cards with an id. 
+                      handleInputChange = {this.handleInputChange.bind(this)} //binds the fxn of this class (*not home class to avoid errors)
+                      handleCardSave = {this.handleCardSave.bind(this)}
+                      q = {this.state.q}
+                      DeckButton={() => ( //Button handler to have the cards with an id. 
                         <button
                           onClick={() => this.handleCardSave(card.id)}//button handler
                           className="btn btn-primary ml-2"
                         >
-                          Save
+                          Search Decks and Save
+                        </button>
+                      )}
+                      SaveButton={() => ( //Button handler to have the cards with an id. 
+                        <button
+                          onClick={() => this.handleDeckNameClick()}//button handler
+                          className="btn btn-primary ml-2"
+                        >
+                         New Deck Name and Save
                         </button>
                       )}
                     />

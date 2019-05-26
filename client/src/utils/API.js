@@ -12,6 +12,12 @@ export default {
     return axios.delete( hostName + "/api/card/" + id);  //return {} 
   },
   saveCard: function(cardData) {
+    console.log(cardData)
     return axios.post( hostName + "/api/card", cardData);  //return {} 
+  }, 
+  createDeck: function(name) {
+    console.log(name)
+    return axios.post( hostName + "/api/card", name);  //return {} 
   }
+  
 };  
