@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules/
+client/node_modules/
 /.pnp
 .pnp.js
 
@@ -24,3 +25,8 @@ Project 3 - proposal.docx
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
