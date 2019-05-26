@@ -3,7 +3,7 @@ const deckController = require("../../controllers/deckController");
 
 router.route("/")
   .get(deckController.findAll)
-  .post(deckController.create);
+  .post(deckController.saveDeck);
 
 router
   .route("/:id")

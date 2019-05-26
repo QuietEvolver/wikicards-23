@@ -69,10 +69,11 @@ class Home extends Component { // function calls and defines the Constructor 'cl
       uri: card.uri, //we are setting the incoming data point parameter named uri from the outside server to be named as 'uri' in our system's database and recognized as such
       confidence: card.confidence, // confidence' data parsed three layers in
       image: card.image //image set as a parameter key in our db received as parsed date 3 cascades in/down
-    }).then((card) => { 
-        console.log(card)
+    }).then((res) => { 
+        const {data} = res;
+        console.log(data)
         API.createDeck({
-        name, cardId: card._id //deck name to card._id
+        name, cardId: data._id //deck name to card._id: data
       })
     }) //the parens closes the api outside parameter receipt.JSON info whcih then sets the then to be 'promised' the data write to lexical $this previously gotten.getcards() information be set to new state
   }; //closes out the saving hanlder function that writes to the database by sending data to the models(dbKey)/views(routing)/controllers(crud.db)
