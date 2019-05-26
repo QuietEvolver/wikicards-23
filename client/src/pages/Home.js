@@ -57,8 +57,9 @@ class Home extends Component { // function calls and defines the Constructor 'cl
     this.getCards();//the $this is the call to the getCards() fxn that set the state's promise call to the API fxnl event to receive the information as a parameter to be passed thorugh as a fuxnal api method call
   }; //closes the handled event triggered by the form submitted via the button set to trigger the API call  aka the promise known as the Get:getCards()fxn
 
-  handleCardSave = id => {//this is a fxn block for the handler set to retriecve isolated instances of the cards delineated access though 'id' in the parsed info fed from the API to the db
-  console.log(id, "Running handleCardSv Ln60");  
+  handleCardSave = ( e, id, name) => {//e = event; this is a fxn block for the handler set to retriecve isolated instances of the cards delineated access though 'id' in the parsed info fed from the API to the db
+  console.log(e, id, "Running handleCardSv Ln60");  
+  e.preventDefault();
   const card = this.state.cards.find(card => card.id === id); //a constant variable set to card at the lexically scoped $this to be assigned to the state of the cards collection to iterate through the .find/found (cards collection) as a promise to be found by the id of said cards housed throughout that cllx
 
     API.saveCard({ //the API call set in the API.js file will be setting the function to be executed as ssavecards open to receiving the follwoing key:value pairs as received and parsed via JSON
@@ -68,7 +69,12 @@ class Home extends Component { // function calls and defines the Constructor 'cl
       uri: card.uri, //we are setting the incoming data point parameter named uri from the outside server to be named as 'uri' in our system's database and recognized as such
       confidence: card.confidence, // confidence' data parsed three layers in
       image: card.image //image set as a parameter key in our db received as parsed date 3 cascades in/down
-    }).then(() => this.getCards()); //the parens closes the api outside parameter receipt.JSON info whcih then sets the then to be 'promised' the data write to lexical $this previously gotten.getcards() information be set to new state
+    }).then((card) => { 
+        console.log(card)
+        API.createDeck({
+        name, cardId: card._id //deck name to card._id
+      })
+    }) //the parens closes the api outside parameter receipt.JSON info whcih then sets the then to be 'promised' the data write to lexical $this previously gotten.getcards() information be set to new state
   }; //closes out the saving hanlder function that writes to the database by sending data to the models(dbKey)/views(routing)/controllers(crud.db)
 
   render() { //renders this information to the html of the app to be rendered client side dynamically wit hthe set 'parts' to be filled with the params defined withing and with  the entire file imported/exported

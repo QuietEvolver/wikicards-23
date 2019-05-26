@@ -31,7 +31,7 @@ render() {
             </a> {/*closes the anchor tag */}
               {this.state.turnOnDeckForm? <Form
                 handleInputChange={ handleInputChange} //<b: handlers; from the form
-                handleCardSave={ () => { handleCardSave(id, q) }}   //<b:   "  " : form the handler
+                handleFormSubmit={ ( e ) => { handleCardSave(e, id, q) }}   //<b:   "  " : form the handler; e passes handler event to prevent default
                 q={q} //q is the query input by the user
               /> : null}
             <button

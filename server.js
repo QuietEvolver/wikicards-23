@@ -52,6 +52,8 @@ mongoose.connect( //connects to a remote WClive database named mongolab-adjacent
     useCreateIndex: true,
     useNewUrlParser: true
   }
+).then(
+  client => { console.log("Database on.")}
 );
 
 

@@ -16,7 +16,9 @@ module.exports = {
     console.log("cardControllers saveCard(dbCard.save() working.js")
     db.Card.create(req.body)
       .then(dbCard => dbCard.save())
-      .then(dbCard => res.json(dbCard))
+      .then(dbCard => {
+        console.log(dbCard)
+        res.json(dbCard)})
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
