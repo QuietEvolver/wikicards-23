@@ -13,3 +13,55 @@ code {
     monospace;
 }
 
+.deck {
+  border: 2px solid black;
+  padding: 150px 100px;
+  border-radius: 25px;
+  background-color: aliceblue;
+  margin: 5px;
+  transition: transform 1s;
+}
+
+.deck:hover {
+  transform: scale(1.1);
+}
+
+.deck-container {
+  display: flex; 
+  justify-content: center;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  background: red;
+}
+
+.card-container {
+  display: flex; 
+  justify-content: center;
+  flex-direction: row;
+  width: 100vw;
+  height: auto;
+  background: blueviolet;
+}
+
+.card {
+  border: 2px solid violet;
+  width: 335px;
+  height: auto;
+  padding: 5px;
+  border-radius: 25px;  
+  background-color: yellow;
+  margin: 5px;
+  transition: transform 1s;
+}
+
+.btn {
+  padding: 5px 10px;
+  border: 2px solid blue;
+  background: skyblue;
+  margin-top: 5px;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}

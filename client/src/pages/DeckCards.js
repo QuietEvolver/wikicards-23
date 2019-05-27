@@ -81,80 +81,68 @@ export default class Home extends Component { // function calls and defines the 
     }) //the parens closes the api outside parameter receipt.JSON info whcih then sets the then to be 'promised' the data write to lexical $this previously gotten.getcards() information be set to new state
   }; //closes out the saving hanlder function that writes to the database by sending data to the models(dbKey)/views(routing)/controllers(crud.db)
 
- getAllCards = () => {
-   console.log( " this is the  this.props.location.state.deck._id  GetAllCards", this.props.location.state.deck._id )
-    API.getAllCards( this.props.location.state.deck._id )
-    .then(({ data }) => { 
-      console.log("this data: ", data);
+  getAllCards = () => {
+    console.log(" this is the  this.props.location.state.deck._id  GetAllCards", this.props.location.state.deck._id)
+    API.getAllCards(this.props.location.state.deck._id)
+      .then(({ data }) => {
+        console.log("this data: ", data);
         this.setState({ cards: data.card })
-    })
- }
+      })
+  }
   componentDidMount() {
     console.log("this.props: ", this.props);
-      this.getAllCards() 
+    this.getAllCards()
   }
 
   render() { //renders this information to the html of the app to be rendered client side dynamically wit hthe set 'parts' to be filled with the params defined withing and with  the entire file imported/exported
     return ( //to be returned when called upon in the given component space in the jsx
       <Container> {/*src/components/*/}
-        <Row> {/*this is wahat is written to the database and read in a row form the Grid ccmponentn */}
-          <Col size="md-12"> {/* this is the column being set and written from the Grid componnet*/}
-            <Jumbotron> {/* jumpotron displaying from the navigation navBar using the 'children' props for population*/}
-              <h1 className="text-center"> {/* header class called in */}
-                <strong>(React) Google Cards Search</strong> {/*located in the App page as a jumbotron which calls in the children props*/}
-              </h1>{/*closes the jsx tags*/}
-              <h2 className="text-center">Search for and Save Cards of Interest.</h2> {/*opens and closes the jsx instrinsic element and gives it the Bstrp class for formatting*/}
-            </Jumbotron>{/*closes the jsx tags for the imported files exported from the Form/Jumbotron folder*/}
-          </Col>{/*closes the jsx tags*/}
-          <Col size="md-12">{/*opens the jsx tag simulataneously calling in the file for Column from component Form set to container in bootrap*/}
-            <Deck title="Deck Search" icon="far fa-card">
-              <Form
-                handleInputChange={this.handleInputChange} //<b: handlers; from the form
-                handleFormSubmit={this.handleFormSubmit}   //<b:   "  " : form the handler
-                q={this.state.q} //q is the query input by the user
-              />  {/*closes the jsx tags for the single Form tag*/}
-            </Deck>
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-12"> {/* Grid Column Child file being called*/}
-            <Deck title="Results"> {/* Card form coming in from the files house w/in form calling in setting a text titled 'Results */}
-              {this.state.cards.length ? ( // the lexically scoped 'this' is set to the current state of cards and asks to evaluate the length conditionally
-                <List> {/* bringing in the list component*/}
-                  {this.state.cards.map(card => ( // this will iterate and 'map', hitting every endpt on the list for the card rendered object(s)
-                    <Card
-                      key={card.id} //sets the key for us with the api info received from the json: card.id
-                      id={card.id}
-                      title={card.title}// received from the api cards render delving into the depths of the endpoint's object parameter all constructed with the value card.volumeInfo
-                      abstract={card.abstract}//this next subparameter hit was for abstract
-                      image={card.image} //link is provided to us by the following dot notated field infoLink
-                      confidence={card.confidence}//yields the probability of the search being qualitative in result
-                      uri={card.uri}//gives a link
-                      // DeckButton={() => ( //Button handler to have the cards with an id. 
-                      //   <button
-                      //     onClick={() => this.handleCardSave(card.id)}//button handler
-                      //     className="btn btn-primary ml-2"
-                      //   >
-                      //     Search Decks and Save
-                      //   </button>
-                      // )}
-                      SaveButton={() => ( //Button handler to have the cards with an id. 
-                        <button
-                          onClick={(e) => this.handleCardSave(e, card.id)}//button handler
-                          className="btn btn-primary ml-2"
-                        >
-                          New Card Save
+        <Jumbotron> {/* jumpotron displaying from the navigation navBar using the 'children' props for population*/}
+          <h1 className="text-center"> {/* header class called in */}
+            <strong>(React) Google Cards Search</strong> {/*located in the App page as a jumbotron which calls in the children props*/}
+          </h1>{/*closes the jsx tags*/}
+          <h2 className="text-center">Search for and Save Cards of Interest.</h2> {/*opens and closes the jsx instrinsic element and gives it the Bstrp class for formatting*/}
+        </Jumbotron>{/*closes the jsx tags for the imported files exported from the Form/Jumbotron folder*/}
+        <Form
+          handleInputChange={this.handleInputChange} //<b: handlers; from the form
+          handleFormSubmit={this.handleFormSubmit}   //<b:   "  " : form the handler
+          q={this.state.q} //q is the query input by the user
+        />  {/*closes the jsx tags for the single Form tag*/}
+        <div> {/* Card form coming in from the files house w/in form calling in setting a text titled 'Results */}
+          {this.state.cards.length !== 0 ? ( // the lexically scoped 'this' is set to the current state of cards and asks to evaluate the length conditionally
+            <div className="card-container"> {/* bringing in the list component*/}
+              {this.state.cards.map(card => ( // this will iterate and 'map', hitting every endpt on the list for the card rendered object(s)
+                <Card
+                  key={card.id} //sets the key for us with the api info received from the json: card.id
+                  id={card.id}
+                  title={card.title}// received from the api cards render delving into the depths of the endpoint's object parameter all constructed with the value card.volumeInfo
+                  abstract={card.abstract}//this next subparameter hit was for abstract
+                  image={card.image} //link is provided to us by the following dot notated field infoLink
+                  confidence={card.confidence}//yields the probability of the search being qualitative in result
+                  uri={card.uri}//gives a link
+                  // DeckButton={() => ( //Button handler to have the cards with an id. 
+                  //   <button
+                  //     onClick={() => this.handleCardSave(card.id)}//button handler
+                  //     className="btn btn-primary ml-2"
+                  //   >
+                  //     Search Decks and Save
+                  //   </button>
+                  // )}
+                  SaveButton={() => ( //Button handler to have the cards with an id. 
+                    <button
+                      onClick={(e) => this.handleCardSave(e, card.id)}//button handler
+                      className="btn"
+                    >
+                      New Card Save
                         </button>
-                      )}
-                    />
-                  ))}
-                </List>
-              ) : (
-                  <h2 className="text-center">{this.state.message}</h2> //??? delineates the default || value of setting the message to user as "pls enter a card to search"  or... ".catch(err)==>"message: "api fail/no resutls"
-                )}{/* : else the following conditionally rendered message for the given $this*/}
-            </Deck>
-          </Col>
-        </Row>
+                  )}
+                />
+              ))}
+            </div>
+          ) : (
+              <h2 className="text-center">{this.state.message}</h2> //??? delineates the default || value of setting the message to user as "pls enter a card to search"  or... ".catch(err)==>"message: "api fail/no resutls"
+            )}{/* : else the following conditionally rendered message for the given $this*/}
+        </div>
         <Footer />
       </Container>
     );

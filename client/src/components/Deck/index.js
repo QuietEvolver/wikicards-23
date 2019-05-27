@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Deck({ icon, name, children }) {
   return (
-    <div className="card mt-4">
+    <div className="deck mt-4">
       <div className="card-header">
         <h3>
           <strong>
