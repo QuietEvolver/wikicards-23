@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 
-class Nav extends Component {
+export default class Nav extends Component {
   state = {
     open: false,
     width: window.innerWidth
@@ -34,7 +34,7 @@ class Nav extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
         <Link className="navbar-brand" to="/">
-          Google Books
+          Your Deck Collection
         </Link>
         <button
           onClick={this.toggleNav}
@@ -61,8 +61,8 @@ class Nav extends Component {
             <li className="nav-item">
               <Link
                 onClick={this.toggleNav}
-                className={window.location.pathname === "/saved" ? "nav-link active" : "nav-link"}
-                to="/saved"
+                className={window.location.pathname === "/home" ? "nav-link active" : "nav-link"}
+                to="/home"  //note:'/home' fka '/saved' 
               >
                 Saved
               </Link>
@@ -74,4 +74,3 @@ class Nav extends Component {
   }
 }
 
-export default Nav;

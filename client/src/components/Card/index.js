@@ -9,7 +9,7 @@ state = {
   turnOnDeckForm: false
 };
 
-handleDeckNameClick = event => {// this is a handled event from the button that submits the form to be written for the database as an 
+handleDeckCardSave = event => {// FKA: 'handleDeckCreateSaveonClick this is a handled event from the button that submits the form to be written for the database as an 
   this.setState({
     turnOnDeckForm: true
   });
@@ -35,7 +35,7 @@ render() {
                 q={q} //q is the query input by the user
               /> : null}
             <button
-                onClick={() => this.handleDeckNameClick()}//button handler
+                onClick={() => this.handleDeckCardSave()}//button handler
                 className="btn btn-primary ml-2"
               >
                 Save

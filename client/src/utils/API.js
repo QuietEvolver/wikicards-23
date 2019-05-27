@@ -15,9 +15,9 @@ export default {
     console.log(cardData)
     return axios.post( hostName + "/api/card", cardData);  //return {} 
   }, 
-  createDeck: function(data) {
-    console.log(data)
-    return axios.post( hostName + "/api/deck", data);  //return {} 
+  createDeck: function(name) {
+    console.log(name)
+  return axios.post( hostName + "/api/deck", {name});  //deck:name
   }
   
 };  

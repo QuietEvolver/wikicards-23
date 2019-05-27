@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"; //imp
 import Home from "./pages/Home";//lns3-6: renders from given page component found w/in the same ./directory
 import Saved from "./pages/Saved";
 import NoMatch from "./pages/NoMatch";
+import DeckPage from "./pages/DeckPage";
 import Nav from "./components/Nav";
 
 export default function App() {
@@ -28,8 +29,9 @@ export default function App() {
       <div> {/*jsx instrinsic element taht looks idential in name and fxn as html*/}
         <Nav />{/*this is the Navigator tag where the home page will render and the Nav component page will encompass it's progrmatically assigned functionality*/}
         <Switch>
-          <Route exact path="/" component={Home} /> {/* renders the home component & saved from ln15; the /renders the homepg when slash/route is hit */}
+          <Route exact path="/" component={DeckPage} /> {/* renders the home component & saved from ln15; the /renders the homepg when slash/route is hit */}
           <Route exact path="/saved" component={Saved} />
+          <Route exact path="/cards" component={Home} />
           <Route component={NoMatch} />
         </Switch>{/* condidtional stating loosely: depending on which one is hit, this is the one dom will render */}
       </div>

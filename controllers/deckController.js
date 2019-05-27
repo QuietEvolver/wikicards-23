@@ -14,21 +14,17 @@ module.exports = {
     },
     saveDeck: function (req, res) {
         console.log("DeckControllers saveDeck(dbDeck.save() working.js")
-        db.Deck.countDocuments({ name: req.body.name }
-        ).then(count => {
-            console.log(typeof count)
-            if (count == 0) {
-                console.log("inside the count fxn")
-                return db.Deck.create({ name: req.body.name})//, cards: [req.body.cardId] }//deck.name, w/new card's id $pushed in[]
-              // .then(dbDeck => {
-                //     console.log(dbDeck)
-                    // return dbDeck.save()
-               // })
-           } else {
-                console.log("This is a duplicate else saveDeck")
-                return db.Deck.findOneAndUpdate({}, { $push: { cards: req.body.cardId } }, { new: true })
-            }
-        })
+        // db.Deck.countDocuments({ name: req.body.name }
+        // ).then(count => {
+            // console.log(typeof count)
+            // if (count == 0) {
+            //     console.log("inside the count fxn")
+            //     return db.Deck.create({ name: req.body.name })//, cards: [req.body.cardId] }//deck.name, w/new card's id $pushed in[]
+            // }
+      //  })
+      console.log(req.body);
+      db.Deck.create({ name: req.body.name })
+            // .then(dbDeck => dbDeck.save())
             .then(dbDeck => res.json(dbDeck))
             .catch(err => res.status(422).json(err));
     },
