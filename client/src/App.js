@@ -6,6 +6,7 @@ import Home from "./pages/Home";//lns3-6: renders from given page component foun
 import Saved from "./pages/Saved";
 import NoMatch from "./pages/NoMatch";
 import DeckPage from "./pages/DeckPage";
+import DeckCards from "./pages/DeckCards";
 import Nav from "./components/Nav";
 
 export default function App() {
@@ -32,6 +33,7 @@ export default function App() {
           <Route exact path="/" component={DeckPage} /> {/* renders the home component & saved from ln15; the /renders the homepg when slash/route is hit */}
           <Route exact path="/saved" component={Saved} />
           <Route exact path="/cards" component={Home} />
+          <Route path="/deck/:name" component={DeckCards} />
           <Route component={NoMatch} />
         </Switch>{/* condidtional stating loosely: depending on which one is hit, this is the one dom will render */}
       </div>

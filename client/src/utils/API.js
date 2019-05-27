@@ -18,6 +18,9 @@ export default {
   createDeck: function(name) {
     console.log(name)
   return axios.post( hostName + "/api/deck", {name});  //deck:name
+  }, 
+  getAllDecks: function() {
+    return axios.get( hostName + "/api/deck"); 
   }
   
 };  

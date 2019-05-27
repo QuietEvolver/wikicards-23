@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Jumbotron from "../components/Jumbotron";
 import Deck from "../components/Deck";
 import Footer from "../components/Footer";
@@ -12,6 +13,7 @@ export default class DeckPage extends Component {
     decks: [], 
     q: " "
   };
+
 createDeck = ( name ) => {  //deck:name
     API.createDeck( name )
     .then(({data}) => {
@@ -22,22 +24,22 @@ createDeck = ( name ) => {  //deck:name
     })
 }
 
-//   componentDidMount() {
-//     this.getSavedCards();
-//   }
+  componentDidMount() {
+    this.getAllDecks();
+  }
 
-//   getSavedCards = () => {
-//     API.getSavedCard()
-//       .then(res =>
-//         this.setState({
-//           cards: res.data
-//         })
-//       )
-//       .catch(err => console.log(err));
-//   };
+  getAllDecks = () => {
+    API.getAllDecks()
+      .then(res =>
+        this.setState({
+          decks: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  };
 
-//   handleCardDelete = id => {
-//     API.deleteCard(id).then(res => this.getSavedCards());
+//   handleDeckDelete = id => {
+//     API.deleteDeck(id).then(res => this.getAllDecks());
 //   };
 
 handleInputChange = event => { //this is a handler based on the text input from the user <button> click.event.  Can also be an onkeyup/onkeydown/onkeypress, etc. event
@@ -74,7 +76,7 @@ this.createDeck(this.state.q);//it will pass the fxn and the desired deck name
                 handleFormSubmit={this.handleFormSubmit}   //<b:   "  " : form the handler
                 q={this.state.q} //q is the query input by the user
               />  {/*closes the jsx tags for the single Form tag*/}
-            { this.state.decks.map(deck =>  <Deck name={ deck.name } icon="download" key = { deck._id } id = { deck._id } />
+            { this.state.decks.map(deck => <Link to = {{ pathname: "/deck/" + deck.name, state: { deck } }}> <Deck name={ deck.name } icon="download" key = { deck._id } id = { deck._id } /> </Link>
                )}
           </Col>
         </Row>

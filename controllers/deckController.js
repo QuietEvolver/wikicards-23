@@ -3,7 +3,7 @@ const db = require("../models");
 module.exports = {
     findAll: function (req, res) {
         console.log("DeckControllers are working.js")
-        db.Deck.find(req.query)
+        db.Deck.find()//req.query)
             .then(dbDeck => res.json(dbDeck))
             .catch(err => res.status(422).json(err));
     },
