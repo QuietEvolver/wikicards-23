@@ -1,11 +1,11 @@
 import React from "react";
 
-function Form({ q, handleInputChange, handleFormSubmit}) {
+function Form({ title, q, handleInputChange, handleFormSubmit}) {
   return (
     <form>
       <div className="form-group">
         <label htmlFor="Query">
-          <strong>Card</strong>
+          <strong>{title}</strong>
         </label>
         <input
           className="form-control"
@@ -24,7 +24,7 @@ function Form({ q, handleInputChange, handleFormSubmit}) {
           type="submit"
           className="btn btn-lg btn-danger float-right"
         >
-          Search
+          Form Submit
         </button>
       </div>
     </form>

@@ -16,7 +16,7 @@ handleDeckCardSave = event => {// FKA: 'handleDeckCreateSaveonClick this is a ha
 }; //closes the handled event triggered by the form submitted via the button set to trigger the API call  aka the promise known as the Get:getCards()fxn
 
 render() {
-  const  { id, title, abstract, confidence, uri, image, SaveButton, handleInputChange, handleCardSave, q }  = this.props; //bc we have not fxn, all attr are gotten from pty; will add components to Form to round out dyanmic formation.
+  const  { id, title, abstract, confidence, uri, image, SaveButton }  = this.props; //, handleInputChange, handleCardSave, q; bc we have not fxn, all attr are gotten from pty; will add components to Form to round out dyanmic formation.
   return (  //fxnCard returns the follwoing render from the page
     <ListItem> {/*jsx transpiled by babel continued throughout .js pages rendering html<-->js; //imports the functionality of grand-child.ListItem component of sibling List*/}
       <Row className="flex-wrap-reverse"> {/* calls in a bootrrap funciton*/}
@@ -29,24 +29,21 @@ render() {
             <a className="btn btn-light" target="_blank" rel="noopener noreferrer" href={uri}>{/*a light Savebutton color set fort he anchor tack for _private class protected _blank*/}
               View {/* text will be rendered on dom upon creation from virtualdom ot dom window */}
             </a> {/*closes the anchor tag */}
-              {this.state.turnOnDeckForm? <Form
-                handleInputChange={ handleInputChange} //<b: handlers; from the form
-                handleFormSubmit={ ( e ) => { handleCardSave(e, id, q) }}   //<b:   "  " : form the handler; e passes handler event to prevent default
-                q={q} //q is the query input by the user
-              /> : null}
-            <button
+            {/* <button
                 onClick={() => this.handleDeckCardSave()}//button handler
                 className="btn btn-primary ml-2"
               >
                 Save
-              </button>
+              </button> */}
+              <SaveButton />
              {/* renders a dyanmic react Savebutton tag */}
           </div> {/* closing div tag */}
         </Col> {/* closing grandchild column tag */}
       </Row> {/* closing granchild row tag */}
       <Row>{/* opening Row tag */}
         <Col size="md-6"> {/* bootstrap container function con't*/}
-          <p className="font-italic small">Quality Return(s) {confidence.$numberDecimal}</p>{/* paragraph tags open/close set w/btsp fonts getting data to prop and static text displayed */}
+          <p className="font-italic small">Confidence in Quality Return(s) { confidence ? confidence.$numberDecimal : 0 }
+          </p>{/* paragraph tags open/close set w/btsp fonts getting data to prop and static text displayed */}
         </Col>{/* closing grandchild column tag */}
       </Row>{/* closing granchild row tag */}
       <Row>{/* opening Row tag */}

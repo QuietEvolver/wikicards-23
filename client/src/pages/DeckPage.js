@@ -75,6 +75,7 @@ this.createDeck(this.state.q);//it will pass the fxn and the desired deck name
                 handleInputChange={this.handleInputChange} //<b: handlers; from the form
                 handleFormSubmit={this.handleFormSubmit}   //<b:   "  " : form the handler
                 q={this.state.q} //q is the query input by the user
+                title="deck"
               />  {/*closes the jsx tags for the single Form tag*/}
             { this.state.decks.map(deck => <Link to = {{ pathname: "/deck/" + deck.name, state: { deck } }}> <Deck name={ deck.name } icon="download" key = { deck._id } id = { deck._id } /> </Link>
                )}

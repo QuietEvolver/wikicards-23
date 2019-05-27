@@ -14,11 +14,14 @@ module.exports = {
   },
   saveCard: function(req, res) { 
     console.log("cardControllers saveCard(dbCard.save() working.js")
-    db.Card.create(req.body)
+    const { card, deckId } = req.body;
+    db.Card.create( card )
       .then(dbCard => dbCard.save())
-      .then(dbCard => {
-        console.log(dbCard)
-        res.json(dbCard)})
+      .then(dbCard => { 
+        console.log("dbCard", dbCard)
+      return db.Deck.findOneAndUpdate({}, { $push: { card: dbCard._id } }, { new: true })        
+      }) 
+      .then(() => {res.json({ message: "Card Sent"})}) 
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {

@@ -9,6 +9,7 @@ heroku_mongodb_connect = env; //heroku mongodb cnxn
 const cors = require("cors");
 //var cheerio = require("cheerio");
 const mongoose = require("mongoose"); //mongooser req'd for db
+mongoose.set("useFindAndModify", false); //error from db says deprecation of fxn {(node:17900) DeprecationWarning: Mongoose: `findOneAndUpdate()`} must be set to F
 const app = express();//Initialize Express
 const PORT = process.env.PORT || 3001; //in production, if not, (process.env.xxx) place where our 2 applications render
 const db = require("./models");// Require all models

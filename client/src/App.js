@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"; //import routers to render to the page via browserRouter, et all
-import Home from "./pages/Home";//lns3-6: renders from given page component found w/in the same ./directory
+//import Home from "./pages/DeckCards";//lns3-6: renders from given page component found w/in the same ./directory
 import Saved from "./pages/Saved";
 import NoMatch from "./pages/NoMatch";
 import DeckPage from "./pages/DeckPage";
@@ -32,7 +32,7 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={DeckPage} /> {/* renders the home component & saved from ln15; the /renders the homepg when slash/route is hit */}
           <Route exact path="/saved" component={Saved} />
-          <Route exact path="/cards" component={Home} />
+          {/* <Route exact path="/cards" component={Home} /> */}
           <Route path="/deck/:name" component={DeckCards} />
           <Route component={NoMatch} />
         </Switch>{/* condidtional stating loosely: depending on which one is hit, this is the one dom will render */}
