@@ -77,7 +77,7 @@ this.createDeck(this.state.q);//it will pass the fxn and the desired deck name
                 q={this.state.q} //q is the query input by the user
                 title="deck"
               />  {/*closes the jsx tags for the single Form tag*/}
-            { this.state.decks.map(deck => <Link to = {{ pathname: "/deck/" + deck.name, state: { deck } }}> <Deck name={ deck.name } icon="download" key = { deck._id } id = { deck._id } /> </Link>
+            { this.state.decks.map(deck => <Link key = { deck._id } to = {{ pathname: "/deck/" + deck.name, state: { deck } }}> <Deck name={ deck.name } icon="download" id = { deck._id } /> </Link>
                )}
           </Col>
         </Row>

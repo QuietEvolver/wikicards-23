@@ -2,11 +2,12 @@ const router = require("express").Router(); //express app router initiated as a 
 const cardController = require("../../controllers/cardController"); //constante imports in the instanceController fxns 
 
 router.route("/") //whenever the routes hit the '/', it performs the follwoing crud functions housed withing the controllers upon route being hit
-  .get((req,res) => {
-      console.log("card.js Route.get");
-      res.send("This is the card.jsresponse back to client");
-  })
-  //.get(cardController.findAll)
+  // Ln 6-9 : Intermediary step that helps ensure server response is rendering PRIOR to coding all CRUD out. Thus, ensuring, one-thing-at-a-time.
+  // .get((req,res) => {
+  //     console.log("card.js Route.get");
+  //     res.send("This is the card.jsresponse back to client");
+  // })
+  .get(cardController.findAll)
   .post(cardController.saveCard);
 
 // router

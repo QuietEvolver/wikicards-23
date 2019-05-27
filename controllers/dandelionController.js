@@ -20,10 +20,9 @@ module.exports = { //this is a module for the ajax call from axios api for googl
          = data.annotations[0]; //grabs all from obj and applies to extracted results
         //console.log( data.annotations[0]);
         let card = { id, title, abstract, image: image.thumbnail, confidence, uri};  
+        console.log(card)
         if (Object.keys(card).length == 0) throw new Error( "Currently, no results; Refine search.");
         res.json(card);// If we were able to successfully create Card, send it back to the client  
-      }).catch(function(err) {
-          res.json(err); // If an error occurred, send it to the client
-      });
+      }).catch(err => res.status(422).json(err));
     }
   };

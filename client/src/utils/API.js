@@ -8,6 +8,10 @@ export default {
   getSavedCard: function() {
     return axios.get( hostName + "/api/card");  //return {}  //TDD: return test first. 
   },
+  getAllCards: function( id ) {
+    console.log(id)
+    return axios.get( hostName + "/api/card", { params: { id } }); 
+  },
   deleteCard: function(id) {
     return axios.delete( hostName + "/api/card/" + id);  //return {} 
   },

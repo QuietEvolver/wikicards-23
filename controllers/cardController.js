@@ -1,35 +1,42 @@
 const db = require("../models");
 
 module.exports = {
-  findAll: function(req, res) {
-    console.log("cardControllers are working.js")
-    db.Card.find(req.query)
-      .then(dbCard => res.json(dbCard))
-      .catch(err => res.status(422).json(err));
+  findAll: function (req, res) {
+    console.log("findAllDeck's Card by DeckId", req.query )
+    db.Deck.findOne({ _id: req.query.id }) //deckId sent to svr to isolate deck(populate:cards)
+      .populate( "card")
+      .exec()
+      .then(function (dbDeck) {
+        console.log("dbDeck: ", dbDeck)
+        res.json(dbDeck);
+      })
+      .catch(function (err) {
+        res.json(err);
+      });
   },
-  findById: function(req, res) {
+  findById: function (req, res) {
     db.Card.findById(req.params.id)
       .then(dbCard => res.json(dbCard))
       .catch(err => res.status(422).json(err));
   },
-  saveCard: function(req, res) { 
+  saveCard: function (req, res) {
     console.log("cardControllers saveCard(dbCard.save() working.js")
     const { card, deckId } = req.body;
-    db.Card.create( card )
+    db.Card.create(card)
       .then(dbCard => dbCard.save())
-      .then(dbCard => { 
+      .then(dbCard => {
         console.log("dbCard", dbCard)
-      return db.Deck.findOneAndUpdate({}, { $push: { card: dbCard._id } }, { new: true })        
-      }) 
-      .then(() => {res.json({ message: "Card Sent"})}) 
+        return db.Deck.findByIdAndUpdate( deckId, { $push: { card: dbCard._id } }, { new: true })
+      })
+      .then(() => { res.json({ message: "Card Sent" }) })
       .catch(err => res.status(422).json(err));
   },
-  update: function(req, res) {
+  update: function (req, res) {
     db.Card.findOneAndUpdate({ id: req.params.id }, req.body)
       .then(dbCard => res.json(dbCard))
       .catch(err => res.status(422).json(err));
   },
-  remove: function(req, res) {
+  remove: function (req, res) {
     db.Card.findById(req.params.id)
       .then(dbCard => dbCard.remove())
       .then(dbCard => res.json(dbCard))

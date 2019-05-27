@@ -1,6 +1,6 @@
 import React, { Component } from "react"; //library import as a component of the constructor class' direct child from app as a grandchild of App()
 import Jumbotron from "../components/Jumbotron";//lns 2-7 w8-9 being app.grandchildren component import of said routes (may actually be a great granchild due to it being app/constructor/pages/compt)
-import Card from "../components/Card"; 
+import Card from "../components/Card";
 import Deck from "../components/Deck"; //component that will dynamically render the cards being filled w API.data
 import Form from "../components/Form/index"; // parent Form Object that will house all of the components housed w/in
 //import Card from "../components/Deck"; //will be the data structure that will be rendered from the input from the use as the card constructor fxn
@@ -25,19 +25,19 @@ export default class Home extends Component { // function calls and defines the 
   }; //this finalizes the handler actions for the action executions for target event
 
   getCards = () => { //this is fucntional promise to execute when information is needed
-   //console.log(this.state.q, API);
-   try {
-     if ( this.state.q.length === 0) throw new Error ("No Searched Card Data Found, Try a Different Query"); 
-   } 
-   catch ( Err ) {
-    this.setState({//lexical $this is now set at the non-fxnl, 'error caught' state
-    cards: [],//assigning the cards data information array to [---erroneous orig thought//"receive any data and] a empty[] array
-    message: Err.message
-   })
-  }
-   API.getCard(this.state.q)//the API inforrmation is read for the getCards function at the lexially scoped variable for this at the query's state at that given time
+    //console.log(this.state.q, API);
+    try {
+      if (this.state.q.length === 0) throw new Error("No Searched Card Data Found, Try a Different Query");
+    }
+    catch (Err) {
+      this.setState({//lexical $this is now set at the non-fxnl, 'error caught' state
+        cards: [],//assigning the cards data information array to [---erroneous orig thought//"receive any data and] a empty[] array
+        message: Err.message
+      })
+    }
+    API.getCard(this.state.q)//the API inforrmation is read for the getCards function at the lexially scoped variable for this at the query's state at that given time
       .then(res => {//upon cRud.reading, the result is then returned as a spomise to set the current, originally read, current state 
-       // console.log(res.data);
+        // console.log(res.data);
         const newCards = this.state.cards.slice();
         newCards.push(res.data)
         this.setState({//as now set reflect the current state of the queried Cards with the incoming 
@@ -57,29 +57,42 @@ export default class Home extends Component { // function calls and defines the 
     this.getCards();//the $this is the call to the getCards() fxn that set the state's promise call to the API fxnl event to receive the information as a parameter to be passed thorugh as a fuxnal api method call
   }; //closes the handled event triggered by the form submitted via the button set to trigger the API call  aka the promise known as the Get:getCards()fxn
 
-  handleCardSave = ( e, id) => {//e = event; this is a fxn block for the handler set to retriecve isolated instances of the cards delineated access though 'id' in the parsed info fed from the API to the db
-  console.log(e, id, "Running handleCardSv Ln60");  
-  e.preventDefault();
-  const card = this.state.cards.find(card => card.id === id); //a constant variable set to card at the lexically scoped $this to be assigned to the state of the cards collection to iterate through the .find/found (cards collection) as a promise to be found by the id of said cards housed throughout that cllx
+  handleCardSave = (e, id) => {//e = event; this is a fxn block for the handler set to retriecve isolated instances of the cards delineated access though 'id' in the parsed info fed from the API to the db
+    console.log(e, id, "Running handleCardSv Ln60");
+    e.preventDefault();
+    const card = this.state.cards.find(card => card.id === id); //a constant variable set to card at the lexically scoped $this to be assigned to the state of the cards collection to iterate through the .find/found (cards collection) as a promise to be found by the id of said cards housed throughout that cllx
     console.log(this.props);
     API.saveCard({ //the API call set in the API.js file will be setting the function to be executed as ssavecards open to receiving the follwoing key:value pairs as received and parsed via JSON
-      card: { 
-          dandelionid: card.id, //googleId key set to the value card.id with card beign the table and the id being the identifier asssigned to is mirroring the key value pair so as to serve as a foeign key down the line
-          title: card.title, //this data is cascaded and parsed as such in depth as denoted through deptths of dot notation/////parsed title key, for the card data with volumeInfo and the given title of the 
-          abstract: card.abstract, //this is the parsed data abstract found at the third layer in/down from the main (*and only as it is only one call)  endpoint's entry
-          uri: card.uri, //we are setting the incoming data point parameter named uri from the outside server to be named as 'uri' in our system's database and recognized as such
-          confidence: card.confidence, // confidence' data parsed three layers in
-          image: card.image //image set as a parameter key in our db received as parsed date 3 cascades in/down
-       }, 
-       deckId: this.props.location.state.deck._id
+      card: {
+        dandelionid: card.id, //googleId key set to the value card.id with card beign the table and the id being the identifier asssigned to is mirroring the key value pair so as to serve as a foeign key down the line
+        title: card.title, //this data is cascaded and parsed as such in depth as denoted through deptths of dot notation/////parsed title key, for the card data with volumeInfo and the given title of the 
+        abstract: card.abstract, //this is the parsed data abstract found at the third layer in/down from the main (*and only as it is only one call)  endpoint's entry
+        uri: card.uri, //we are setting the incoming data point parameter named uri from the outside server to be named as 'uri' in our system's database and recognized as such
+        confidence: card.confidence, // confidence' data parsed three layers in
+        image: card.image //image set as a parameter key in our db received as parsed date 3 cascades in/down
+      },
+      deckId: this.props.location.state.deck._id
       // }).then((res) => { 
-    //     const {data} = res;
-    //     console.log(data)
-    //     API.createDeck({
-    //     name, cardId: data._id //deck name to card._id: data
-    //   })
+      //     const {data} = res;
+      //     console.log(data)
+      //     API.createDeck({
+      //     name, cardId: data._id //deck name to card._id: data
+      //   })
     }) //the parens closes the api outside parameter receipt.JSON info whcih then sets the then to be 'promised' the data write to lexical $this previously gotten.getcards() information be set to new state
   }; //closes out the saving hanlder function that writes to the database by sending data to the models(dbKey)/views(routing)/controllers(crud.db)
+
+ getAllCards = () => {
+   console.log( " this is the  this.props.location.state.deck._id  GetAllCards", this.props.location.state.deck._id )
+    API.getAllCards( this.props.location.state.deck._id )
+    .then(({ data }) => { 
+      console.log("this data: ", data);
+        this.setState({ cards: data.card })
+    })
+ }
+  componentDidMount() {
+    console.log("this.props: ", this.props);
+      this.getAllCards() 
+  }
 
   render() { //renders this information to the html of the app to be rendered client side dynamically wit hthe set 'parts' to be filled with the params defined withing and with  the entire file imported/exported
     return ( //to be returned when called upon in the given component space in the jsx
@@ -109,9 +122,9 @@ export default class Home extends Component { // function calls and defines the 
               {this.state.cards.length ? ( // the lexically scoped 'this' is set to the current state of cards and asks to evaluate the length conditionally
                 <List> {/* bringing in the list component*/}
                   {this.state.cards.map(card => ( // this will iterate and 'map', hitting every endpt on the list for the card rendered object(s)
-                    <Card 
+                    <Card
                       key={card.id} //sets the key for us with the api info received from the json: card.id
-                      id = {card.id}
+                      id={card.id}
                       title={card.title}// received from the api cards render delving into the depths of the endpoint's object parameter all constructed with the value card.volumeInfo
                       abstract={card.abstract}//this next subparameter hit was for abstract
                       image={card.image} //link is provided to us by the following dot notated field infoLink
@@ -127,18 +140,18 @@ export default class Home extends Component { // function calls and defines the 
                       // )}
                       SaveButton={() => ( //Button handler to have the cards with an id. 
                         <button
-                          onClick={(e) => this.handleCardSave( e, card.id )}//button handler
+                          onClick={(e) => this.handleCardSave(e, card.id)}//button handler
                           className="btn btn-primary ml-2"
                         >
-                         New Card Save
+                          New Card Save
                         </button>
                       )}
                     />
                   ))}
                 </List>
-              ) : ( 
-                <h2 className="text-center">{this.state.message}</h2> //??? delineates the default || value of setting the message to user as "pls enter a card to search"  or... ".catch(err)==>"message: "api fail/no resutls"
-              )}{/* : else the following conditionally rendered message for the given $this*/}
+              ) : (
+                  <h2 className="text-center">{this.state.message}</h2> //??? delineates the default || value of setting the message to user as "pls enter a card to search"  or... ".catch(err)==>"message: "api fail/no resutls"
+                )}{/* : else the following conditionally rendered message for the given $this*/}
             </Deck>
           </Col>
         </Row>
