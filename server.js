@@ -2,10 +2,11 @@ const express = require("express"); //
 var logger = require("morgan");
 var axios = require("axios");
 let env = require("dotenv");
+console.log(env);
 let API_KEY = process.env.REACT_APP_DANDELION_KEY;
-API_KEY = env; //dandelion
+//API_KEY = env; //dandelion
 let heroku_mongodb_connect = process.env.SVR_SIDE_HEROKU_MONGODB_CONNECT; 
-heroku_mongodb_connect = env; //heroku mongodb cnxn
+//heroku_mongodb_connect = env; //heroku mongodb cnxn
 const cors = require("cors");
 //var cheerio = require("cheerio");
 const mongoose = require("mongoose"); //mongooser req'd for db
@@ -20,7 +21,7 @@ app.use(logger("dev"));//  middleware; Use morgan logger for logging requests
 app.use(express.urlencoded({ extended: true })); //Configure middleware: send and receive json necessary to be parsed from plain http which javascript doens't understand the incoming data as an Object.
 app.use(express.json());
 
-
+console.log(process.env.NODE_ENV, heroku_mongodb_connect);
 if (process.env.NODE_ENV == "production") { 
    app.use(express.static("client/build"))//if we're in prdxn, point and use "clint/build", appending the build folder that will be build when Heroku npm react app is called modularized by webpack served to the ui triaged by heroku deployment
 }
@@ -48,7 +49,8 @@ const dandelion = require("node-dandelion");
 // ==> Successfully started `mongodb` (label: homebrew.mxcl.mongo
 
 mongoose.connect( //connects to a remote WClive database named mongolab-adjacent-90810
-  process.env.MONGODB_URI || "mongodb:heroku_d3hm1rrg:q5m01fivkfl91ohm80kalcer7u@ds149146.mlab.com:49146/heroku_d3hm1rrg",//"mongodb://localhost/wikicards",//"heroku_mongodb_connect",
+  heroku_mongodb_connect || "mongodb://localhost/wikicards",
+  //process.env.MONGODB_URI || "mongodb:heroku_d3hm1rrg:q5m01fivkfl91ohm80kalcer7u@ds149146.mlab.com:49146/heroku_d3hm1rrg",//"mongodb://localhost/wikicards",//"heroku_mongodb_connect",
   {
     useCreateIndex: true,
     useNewUrlParser: true

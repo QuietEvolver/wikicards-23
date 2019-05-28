@@ -42,7 +42,8 @@ export default class Home extends Component { // function calls and defines the 
         if( newCards.find(card => card.id === res.data.id) ) throw new Error( "This card is in existence.");
         newCards.push(res.data)
         this.setState({//as now set reflect the current state of the queried Cards with the incoming 
-          cards: newCards //res.data yielding the new setState val
+          cards: newCards, //res.data yielding the new setState val
+          q: ""
         })// denotes the end of the incoming data at the promised instance of $this given setState()
       })
       .catch(() => //if there is an error in data receipt/function execution, error will be 'caught' in order to continue to execute the program fucntion instead of crashing the app
