@@ -48,7 +48,7 @@ const dandelion = require("node-dandelion");
 // ==> Successfully started `mongodb` (label: homebrew.mxcl.mongo
 
 mongoose.connect( //connects to a remote WClive database named mongolab-adjacent-90810
-  process.env.MONGODB_URI || "mongodb://localhost/wikicards",//"heroku_mongodb_connect",
+  process.env.MONGODB_URI || "mongodb:heroku_d3hm1rrg:q5m01fivkfl91ohm80kalcer7u@ds149146.mlab.com:49146/heroku_d3hm1rrg",//"mongodb://localhost/wikicards",//"heroku_mongodb_connect",
   {
     useCreateIndex: true,
     useNewUrlParser: true
