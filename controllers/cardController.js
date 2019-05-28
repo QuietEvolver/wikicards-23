@@ -22,11 +22,21 @@ module.exports = {
   saveCard: function (req, res) {
     console.log("cardControllers saveCard(dbCard.save() working.js")
     const { card, deckId } = req.body;
-    db.Card.create(card)
+    db.Card.findOne({id:card.id})
+      .exec()
+      .then(dbCard => {
+        if(dbCard){
+          console.log ("dbCard exists already", dbCard)
+          return dbCard;
+        } else {
+          console.log ("dbCard creation", dbCard)
+          return db.Card.create(card);
+        }
+      })
       .then(dbCard => dbCard.save())
       .then(dbCard => {
-        console.log("dbCard", dbCard)
-        return db.Deck.findByIdAndUpdate( deckId, { $push: { card: dbCard._id } }, { new: true })
+        console.log("dbCard is being added to Deck", dbCard)
+        return db.Deck.findByIdAndUpdate( deckId, { $addToSet: { card: dbCard._id } }, { new: true })
       })
       .then(() => { res.json({ message: "Card Sent" }) })
       .catch(err => res.status(422).json(err));

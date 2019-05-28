@@ -14,7 +14,8 @@ export default class Home extends Component { // function calls and defines the 
     cards: [], //this will be the indexed collection of cards set to an array of User["input"]
     q: "", //this is the query of the API call for the cards.data db table population; this si the input fieldo's original state set to an empty field string ""
     message: "Search For A Card To Begin!", //original state is diplay an input of text action from the user as a hard coded message
-    turnOnDeckForm: false
+    turnOnDeckForm: false, 
+    firstTimeNewCardLoad: true
   };
 
   handleInputChange = event => { //this is a handler based on the text input from the user <button> click.event.  Can also be an onkeyup/onkeydown/onkeypress, etc. event
@@ -31,14 +32,14 @@ export default class Home extends Component { // function calls and defines the 
     }
     catch (Err) {
       this.setState({//lexical $this is now set at the non-fxnl, 'error caught' state
-        cards: [],//assigning the cards data information array to [---erroneous orig thought//"receive any data and] a empty[] array
-        message: Err.message
+      message: Err.message
       })
     }
     API.getCard(this.state.q)//the API inforrmation is read for the getCards function at the lexially scoped variable for this at the query's state at that given time
       .then(res => {//upon cRud.reading, the result is then returned as a spomise to set the current, originally read, current state 
         // console.log(res.data);
         const newCards = this.state.cards.slice();
+        if( newCards.find(card => card.id === res.data.id) ) throw new Error( "This card is in existence.");
         newCards.push(res.data)
         this.setState({//as now set reflect the current state of the queried Cards with the incoming 
           cards: newCards //res.data yielding the new setState val
@@ -46,8 +47,7 @@ export default class Home extends Component { // function calls and defines the 
       })
       .catch(() => //if there is an error in data receipt/function execution, error will be 'caught' in order to continue to execute the program fucntion instead of crashing the app
         this.setState({//lexical $this is now set at the non-fxnl, 'error caught' state
-          cards: [],//assigning the cards data information array to [---erroneous orig thought//"receive any data and] a empty[] array
-          message: "No New Cards Found, Try a Different Query"//message rendered in this field dynamically for this instance as the system cathes the erro and diplays a 'message' to the user scoped, set, and accessed in this block
+        message: "No New Cards Found, Try a Different Query"//message rendered in this field dynamically for this instance as the system cathes the erro and diplays a 'message' to the user scoped, set, and accessed in this block
         })//this closes the caught error block
       );//this closes the promised api call 
   };//this closes the get call function promise
@@ -64,7 +64,7 @@ export default class Home extends Component { // function calls and defines the 
     console.log(this.props);
     API.saveCard({ //the API call set in the API.js file will be setting the function to be executed as ssavecards open to receiving the follwoing key:value pairs as received and parsed via JSON
       card: {
-        dandelionid: card.id, //googleId key set to the value card.id with card beign the table and the id being the identifier asssigned to is mirroring the key value pair so as to serve as a foeign key down the line
+        id: card.id, //googleId key set to the value card.id with card beign the table and the id being the identifier asssigned to is mirroring the key value pair so as to serve as a foeign key down the line
         title: card.title, //this data is cascaded and parsed as such in depth as denoted through deptths of dot notation/////parsed title key, for the card data with volumeInfo and the given title of the 
         abstract: card.abstract, //this is the parsed data abstract found at the third layer in/down from the main (*and only as it is only one call)  endpoint's entry
         uri: card.uri, //we are setting the incoming data point parameter named uri from the outside server to be named as 'uri' in our system's database and recognized as such
@@ -86,7 +86,7 @@ export default class Home extends Component { // function calls and defines the 
     API.getAllCards(this.props.location.state.deck._id)
       .then(({ data }) => {
         console.log("this data: ", data);
-        this.setState({ cards: data.card })
+        if(data) this.setState({ cards: data.card, firstTimeNewCardLoad: false });
       })
   }
   componentDidMount() {
@@ -114,6 +114,7 @@ export default class Home extends Component { // function calls and defines the 
               {this.state.cards.map(card => ( // this will iterate and 'map', hitting every endpt on the list for the card rendered object(s)
                 <Card
                   key={card.id} //sets the key for us with the api info received from the json: card.id
+                  firstTimeNewCardLoad={this.state.firstTimeNewCardLoad} //passes to card component to hide/show any or anything pertaining to first time a new card loads on page;
                   id={card.id}
                   title={card.title}// received from the api cards render delving into the depths of the endpoint's object parameter all constructed with the value card.volumeInfo
                   abstract={card.abstract}//this next subparameter hit was for abstract
@@ -128,14 +129,7 @@ export default class Home extends Component { // function calls and defines the 
                   //     Search Decks and Save
                   //   </button>
                   // )}
-                  SaveButton={() => ( //Button handler to have the cards with an id. 
-                    <button
-                      onClick={(e) => this.handleCardSave(e, card.id)}//button handler
-                      className="btn"
-                    >
-                      New Card Save
-                        </button>
-                  )}
+                  handleCardSave={(e) => this.handleCardSave(e, card.id)}//we are passing properties v components so btn can 'hide'}
                 />
               ))}
             </div>

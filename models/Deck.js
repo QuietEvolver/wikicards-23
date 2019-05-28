@@ -7,7 +7,8 @@ const deckSchema = new Schema({
   card: [{ 
     type: Schema.Types.ObjectId, 
     ref: "Card", 
-    unique: true 
+    unique: true, 
+    index: {unique: true}
   }],
   // link: { type: String, required: true },
   // description: { type: String, required: true },

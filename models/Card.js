@@ -2,7 +2,7 @@ const mongoose = require("mongoose"); //guilds a schema for the database for the
 const Schema = mongoose.Schema; //sets a schema for mongoeese.db
 
 const cardSchema = new Schema({
-  // _id: { type: String, required: true, unique: true },
+  id: { type: Number, required: true, unique: true },
   //abstract: { type: [String], required: true },
   title: { type: String, required: true },
   image: { type: String, required: true },

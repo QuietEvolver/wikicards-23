@@ -24,7 +24,7 @@ function Form({ title, q, handleInputChange, handleFormSubmit}) {
           type="submit"
           className="btn btn-lg btn-danger float-right"
         >
-          Form Submit
+          Submit
         </button>
       </div>
     </form>
