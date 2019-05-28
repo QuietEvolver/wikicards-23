@@ -1,5 +1,5 @@
 import axios from "axios"; //api call from axios ajax for react
-var hostName = "http://localhost:3001";
+var hostName = process.env.DEVELOPMENT ? "http://localhost:3001" : " ";
 export default {
   getCard: function(q) { //TDD: return test first.
     //return { params: { q: "title:" + q } };
