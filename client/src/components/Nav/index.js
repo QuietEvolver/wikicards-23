@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
+import images from "../../images/collections.jpg";
+console.log(images, "pics");
 
 export default class Nav extends Component {
   state = {
@@ -31,12 +33,22 @@ export default class Nav extends Component {
   }
 
   render() {
+    const style = { 
+      background: "url(" + images + ")",
+      backgroundSize: "115%",
+      width: "100vw",
+      height: "400px", 
+      backgroundPosition: "center"
+    }
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
         <Link className="navbar-brand" to="/">
-          Your Deck Collection
+        <div style={style}>
+
+        </div>
+        {/*  <h1 style={{fontWeight:"bolder"}}> Your Deck Collections </h1>*/}
         </Link>
-        <button
+        {/* <button //tbd in native
           onClick={this.toggleNav}
           className="navbar-toggler"
           data-toggle="collapse"
@@ -46,8 +58,8 @@ export default class Nav extends Component {
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon" />
-        </button>
-        <div className={`${this.state.open ? "" : "collapse "}navbar-collapse`} id="navbarNav">
+        </button> */}
+        {/* <div className={`${this.state.open ? "" : "collapse "}navbar-collapse`} id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link
@@ -68,7 +80,7 @@ export default class Nav extends Component {
               </Link>
             </li>
           </ul>
-        </div>
+        </div> */}
       </nav>
     );
   }

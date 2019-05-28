@@ -14,17 +14,7 @@ export default function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-     COLLECTIONS
-        </a>
+
       </header>
       <Router>{/*this is the tag for the JSX known as Router which enlists the all fo the Router files passed along and assigned by express*/}
       <div> {/*jsx instrinsic element taht looks idential in name and fxn as html*/}
