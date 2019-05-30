@@ -4,9 +4,7 @@ import Jumbotron from "../components/Jumbotron";
 import Deck from "../components/Deck";
 import Footer from "../components/Footer";
 import API from "../utils/API";
-//import { Col, Row, Container } from "../components/Grid";
-import Form from "../components/Form/index"; // parent Form Object that will house all of the components housed w/in
-//import { List } from "../components/List";
+import Form from "../components/Form/index"; //parent Form Object that will house all of the components housed w/in
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
