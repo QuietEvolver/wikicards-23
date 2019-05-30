@@ -8,14 +8,15 @@ import NoMatch from "./pages/NoMatch";
 import DeckPage from "./pages/DeckPage";
 import DeckCards from "./pages/DeckCards";
 import Nav from "./components/Nav";
+import background from "./images/dnc-youn/bgy4.jpg"
 
 export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="App" style={{background: `url(${background})`}}>
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
-      </header>
+      </header> */}
       <Router>{/*this is the tag for the JSX known as Router which enlists the all fo the Router files passed along and assigned by express*/}
       <div> {/*jsx instrinsic element taht looks idential in name and fxn as html*/}
         <Nav />{/*this is the Navigator tag where the home page will render and the Nav component page will encompass it's progrmatically assigned functionality*/}

@@ -2,13 +2,13 @@ const mongoose = require("mongoose"); //guilds a schema for the database for the
 const Schema = mongoose.Schema; //sets a schema for mongoeese.db
 
 const deckSchema = new Schema({
-  name: { type: String, trim: true, required: "Deck name required", index: {unique: true} },
-//  userId: { type: String, required: true },
+  name: {type: String, trim: true, required: true , index: {unique: true }},
+//  userId: { type: String, required: true },//dropDups: true
   card: [{ 
     type: Schema.Types.ObjectId, 
     ref: "Card", 
-    unique: true, 
-    index: {unique: true}
+    unique: true//, 
+    // index: {unique: true} unique: true, 
   }],
   // link: { type: String, required: true },
   // description: { type: String, required: true },

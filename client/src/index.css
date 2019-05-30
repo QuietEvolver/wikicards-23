@@ -1,5 +1,5 @@
 body {
-  background: black;
+  /* background: url(); */
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -13,6 +13,9 @@ code {
     monospace;
 }
 
+h1 {
+  color: bisque;
+}
 .deck {
   border: 2px solid rgb(177, 226, 43);
   padding: 100px 10px;
@@ -41,12 +44,14 @@ code {
   flex-direction: row;
   width: 100vw;
   height: 100vh;
+  flex-wrap: wrap;
 }
 
 .card-container {
   display: flex; 
   justify-content: center;
   flex-direction: row;
+  flex-wrap: wrap;
   width: 100vw;
   height: auto;
 }

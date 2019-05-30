@@ -35,9 +35,10 @@ export default class Nav extends Component {
   render() {
     const style = { 
       background: "url(" + images + ")",
-      backgroundSize: "115%",
+      backgroundSize: "105%",
+      backgroundRepeat: "no-repeat",
       width: "100vw",
-      height: "400px", 
+      height: "450px", 
       backgroundPosition: "center"
     }
     return (

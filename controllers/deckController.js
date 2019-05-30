@@ -23,9 +23,18 @@ module.exports = {
             // }
       //  })
       console.log(req.body);
-      db.Deck.create({ name: req.body.name })
+      db.Deck.findOne({ name: req.body.name })
+      .exec()
+      .then(dbDeck => { 
+          if( !dbDeck ){
+              return db.Deck.create({ name: req.body.name })
+          }
+      })
             // .then(dbDeck => dbDeck.save())
-            .then(dbDeck => res.json(dbDeck))
+            .then(dbDeck => {
+                console.log("dbDeck create", dbDeck)
+                res.json(dbDeck)
+            })
             .catch(err => res.status(422).json(err));
     },
     update: function (req, res) {

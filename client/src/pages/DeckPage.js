@@ -11,16 +11,18 @@ import Form from "../components/Form/index"; // parent Form Object that will hou
 export default class DeckPage extends Component {
   state = {
     decks: [],
-    q: " "
+    q: ""
   };
 
   createDeck = (name) => {  //deck:name
     API.createDeck(name)
       .then(({ data }) => {
-        console.log("data: ", data);
-        let newDecks = this.state.decks.slice();
+        console.log("data: ", data, data.length, "L");
+        if ( data.length !== 0 ){
+                  let newDecks = this.state.decks.slice();
         newDecks.push(data);
         this.setState({ decks: newDecks });//calling state name to change; temp obj
+        } 
       })
   }
 
