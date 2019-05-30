@@ -8,6 +8,8 @@ import Footer from "../components/Footer"; //Footer being used from the Construc
 import API from "../utils/API"; //calls form the API.js file housed in the utils from the routes for the information 'gotten' from the JSON.data parsed AJAX call
 import { Col, Row, Container } from "../components/Grid"; // Grid.js:Component for Form: delineated React.App() jsx sections that will be the container class for the data parsing over to the atabase
 import { List } from "../components/List";//list all of the items housed in the cards.Collection for the given User: can be (1) in collection or a list-item(x[i]) nums of cllxns
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export default class Home extends Component { // function calls and defines the Constructor 'class' being rendered for the Object Home{...props} which ultimately will populate the parent App()
   state = { //delineates the state origin of the App Constructor with giving it child.props: 
@@ -99,10 +101,12 @@ export default class Home extends Component { // function calls and defines the 
     return ( //to be returned when called upon in the given component space in the jsx
       <Container> {/*src/components/*/}
         <Jumbotron> {/* jumpotron displaying from the navigation navBar using the 'children' props for population*/}
+        <h1 style={{fontSize:"4em"}}>{this.props.location.state.deck.name}</h1>
           <h1 className="text-center"> {/* header class called in */}
-            <strong>(React) Google Cards Search</strong> {/*located in the App page as a jumbotron which calls in the children props*/}
+            <strong>Wikipedia Cards Search</strong> {/*located in the App page as a jumbotron which calls in the children props*/}
           </h1>{/*closes the jsx tags*/}
-          <h2 className="text-center">Search for and Save Cards of Interest.</h2> {/*opens and closes the jsx instrinsic element and gives it the Bstrp class for formatting*/}
+          <h2 className="text-center">Search, Click, and Save Cards of Interest to {this.props.location.state.deck.name}</h2> {/*opens and closes the jsx instrinsic element and gives it the Bstrp class for formatting*/}
+          <FontAwesomeIcon icon={faSearch} size="4x"/>
         </Jumbotron>{/*closes the jsx tags for the imported files exported from the Form/Jumbotron folder*/}
         <Form
           handleInputChange={this.handleInputChange} //<b: handlers; from the form

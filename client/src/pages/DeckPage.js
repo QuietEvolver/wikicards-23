@@ -7,6 +7,9 @@ import API from "../utils/API";
 //import { Col, Row, Container } from "../components/Grid";
 import Form from "../components/Form/index"; // parent Form Object that will house all of the components housed w/in
 //import { List } from "../components/List";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
 
 export default class DeckPage extends Component {
   state = {
@@ -17,12 +20,12 @@ export default class DeckPage extends Component {
   createDeck = (name) => {  //deck:name
     API.createDeck(name)
       .then(({ data }) => {
-        console.log("data: ", data, data.length, "L");
-        if ( data.length !== 0 ){
-                  let newDecks = this.state.decks.slice();
-        newDecks.push(data);
-        this.setState({ decks: newDecks });//calling state name to change; temp obj
-        } 
+        console.log("data: ", data, data.length, "data.Length");
+        if (data.length !== 0) {
+          let newDecks = this.state.decks.slice();
+          newDecks.push(data);
+          this.setState({ decks: newDecks });//calling state name to change; temp obj
+        }
       })
   }
 
@@ -59,23 +62,30 @@ export default class DeckPage extends Component {
 
 
   render() {
+    console.log(this.state.decks.length);
     return (
-      <div>
-        <h1 className="text-center">
-          <strong>Create and View Decks</strong>
-        </h1>
-        {/* <h2 className="text-center">Create and Save Collections of Interest.</h2> */}
-        <Form
-          handleInputChange={this.handleInputChange} //<b: handlers; from the form
-          handleFormSubmit={this.handleFormSubmit}   //<b:   "  " : form the handler
-          q={this.state.q} //q is the query input by the user
-          title="deck"
-        />  {/*closes the jsx tags for the single Form tag*/}
-        <div className="deck-container">
-          {this.state.decks.map(deck => <Link key={deck._id} to={{ pathname: "/deck/" + deck.name, state: { deck } }}> <Deck name={deck.name} icon="download" id={deck._id} /> </Link>
-          )}
+      <div style={{ position: "relative" }}>
+
+        <div className="page-container">
+          <div>
+            <h1>Create and View Decks</h1>
+            <h2>Name Your Deck and Click on a Deck to Create New Cards</h2>
+            <FontAwesomeIcon icon={faSearch} size="4x" />
+          </div>
+          {/* <h2 className="text-center">Create and Save Collections of Interest.</h2> */}
+          <Form
+            handleInputChange={this.handleInputChange} //<b: handlers; from the form
+            handleFormSubmit={this.handleFormSubmit}   //<b:   "  " : form the handler
+            q={this.state.q} //q is the query input by the user
+
+          />  {/*closes the jsx tags for the single Form tag*/}
+          <div className="deck-container">
+            {this.state.decks.map(deck => <Link key={deck._id} to={{ pathname: "/deck/" + deck.name, state: { deck } }}> <Deck name={deck.name} icon="download" id={deck._id} /> </Link>
+            )
+            } </div>
+
+          <Footer />
         </div>
-        <Footer />
       </div>
     );
   }

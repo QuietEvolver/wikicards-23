@@ -33,19 +33,21 @@ export default class Nav extends Component {
   }
 
   render() {
-    const style = { 
-      background: "url(" + images + ")",
-      backgroundSize: "105%",
-      backgroundRepeat: "no-repeat",
+    const style = {
+      color: "white", 
+      backgroundColor: "black",
       width: "100vw",
-      height: "450px", 
-      backgroundPosition: "center"
+      height: "300px", 
+      fontSize: "5em",
+      backgroundPosition: "center",
+      display: "flex",
+      justifyContent: "center"
     }
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
         <Link className="navbar-brand" to="/">
         <div style={style}>
-
+        <div style={{marginTop:75}}>WikiCard</div>
         </div>
         {/*  <h1 style={{fontWeight:"bolder"}}> Your Deck Collections </h1>*/}
         </Link>

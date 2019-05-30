@@ -8,11 +8,11 @@ import NoMatch from "./pages/NoMatch";
 import DeckPage from "./pages/DeckPage";
 import DeckCards from "./pages/DeckCards";
 import Nav from "./components/Nav";
-import background from "./images/dnc-youn/bgy4.jpg"
+//import background from "./images/dnc-youn/bgy4.jpg"
 
 export default function App() {
   return (
-    <div className="App" style={{background: `url(${background})`}}>
+    <div className="App">
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
