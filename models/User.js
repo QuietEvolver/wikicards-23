@@ -3,15 +3,15 @@ var Schema = mongoose.Schema;// Save a reference to the Schema constructor
 
 var userSchema = new Schema({
  //* NOTE: the MongoDB _id was created automatically.; //TOBE additions w/in[ -u/-p match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true}
-  username: { type: String, trim: true, required: "Username is Required"},
+  username: { type: String, trim: true, required:true},
   // `password` is required and of type String
-  password: { type: String, trim: true, required: "Password is Required",
-    validate: {     //validation in backend -u/-p
-      validator: function(input) {
-        return input.length >= 6 < 15;
-      },
-      message: "Password should be longer."
-    }},
+  password: { type: String, trim: true, required:true,
+    // validate: {     //validation in backend -u/-p
+    //   validator: function(input) {
+    //     return input.length >= 6 < 15;
+    //   },
+    //   message: "Password should be longer."
+    },//},
     createdAt: {
       type: Date,
       default: Date.now

@@ -1,8 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"; //import routers to render to the page via browserRouter, et all
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"; //import routers to render to the page via browserRouter, et all
 //import Home from "./pages/DeckCards";//lns3-6: renders from given page component found w/in the same ./directory
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import Saved from "./pages/Saved";
 import NoMatch from "./pages/NoMatch";
 import DeckPage from "./pages/DeckPage";
@@ -22,6 +24,9 @@ export default function App() {
         <Nav />{/*this is the Navigator tag where the home page will render and the Nav component page will encompass it's progrmatically assigned functionality*/}
         <Switch>
           <Route exact path="/" component={DeckPage} /> {/* renders the home component & saved from ln15; the /renders the homepg when slash/route is hit */}
+          <Redirect from="/sign_up_r" to="/login"/> 
+          <Route exact path="/sign_up" component={SignUp} />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/saved" component={Saved} />
           {/* <Route exact path="/cards" component={Home} /> */}
           <Route path="/deck/:name" component={DeckCards} />

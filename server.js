@@ -4,7 +4,7 @@ const localStrategy = require("passport-local");//passport prebuilt strategy all
 var logger = require("morgan");
 var axios = require("axios");
 let env = require("dotenv");
-console.log(env);
+const session = require("express-session");
 let API_KEY = process.env.REACT_APP_DANDELION_KEY;
 //API_KEY = env; //dandelion
 let heroku_mongodb_connect = process.env.SVR_SIDE_HEROKU_MONGODB_CONNECT;
@@ -17,13 +17,18 @@ const app = express();//Initialize Express
 const PORT = process.env.PORT || 3001; //in production, if not, (process.env.xxx) place where our 2 applications render
 const db = require("./models");// Require all models
 const routes = require("./routes");//routing for mvc
-//require("./routes")(app);
+const userController = require("./controllers/userController"); //import controller for User
 app.use(cors()); //middleware to allow for cross-origin request(s)
 app.use(logger("dev"));//  middleware; Use morgan logger for logging requests
 app.use(express.urlencoded({ extended: true })); //Configure middleware: send and receive json necessary to be parsed from plain http which javascript doens't understand the incoming data as an Object.
 app.use(express.json());
 
+app.use(session({ secret:"secretPassword", resave:true, saveUninitialized: true })); //, cookie:{},create a user oauth session
+app.use(passport.initialize()); //initializes passport session init()fxn
+app.use(passport.session()); //initializes actual sessoin() fxn of passport post init fxn. 
+
 function handleLogin(username, password, done) {  //takes a callback "done"
+  console.log( "-u/-p", username, password);  
   db.User.findOne({ username }, (err, User) => {
     // .then(( User ) => { passport =/= promises
     if (err) {
@@ -44,6 +49,9 @@ const loginStrategy = new localStrategy(handleLogin);//creating an instance of t
 passport.use(loginStrategy);
 
 console.log(process.env.NODE_ENV, heroku_mongodb_connect);
+
+app.post("/sign_up", userController.create);  //"path for sign_ups"
+
 if (process.env.NODE_ENV == "production") {
   app.use(express.static("client/build"))//if we're in prdxn, point and use "clint/build", appending the build folder that will be build when Heroku npm react app is called modularized by webpack served to the ui triaged by heroku deployment
 }
