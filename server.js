@@ -1,11 +1,13 @@
-const express = require("express"); //
+const express = require("express");
+const passport = require("passport");
+const localStrategy = require("passport-local");//passport prebuilt strategy allowing dev to use broad -u/-p strokes
 var logger = require("morgan");
 var axios = require("axios");
 let env = require("dotenv");
 console.log(env);
 let API_KEY = process.env.REACT_APP_DANDELION_KEY;
 //API_KEY = env; //dandelion
-let heroku_mongodb_connect = process.env.SVR_SIDE_HEROKU_MONGODB_CONNECT; 
+let heroku_mongodb_connect = process.env.SVR_SIDE_HEROKU_MONGODB_CONNECT;
 //heroku_mongodb_connect = env; //heroku mongodb cnxn
 const cors = require("cors");
 //var cheerio = require("cheerio");
@@ -21,9 +23,29 @@ app.use(logger("dev"));//  middleware; Use morgan logger for logging requests
 app.use(express.urlencoded({ extended: true })); //Configure middleware: send and receive json necessary to be parsed from plain http which javascript doens't understand the incoming data as an Object.
 app.use(express.json());
 
+function handleLogin(username, password, done) {  //takes a callback "done"
+  db.User.findOne({ username }, (err, User) => {
+    // .then(( User ) => { passport =/= promises
+    if (err) {
+      return done(err);
+    }
+    if (!User) {
+      return done(null, false, { message: "Inccorrect UserName" });
+    }
+    if (User.password === password) {
+      return done(null, User);
+    } 
+    else {
+      return  done(null, false, { message: "Inccorect Password"});
+    }
+  })
+}
+const loginStrategy = new localStrategy(handleLogin);//creating an instance of the prepkged strategy above
+passport.use(loginStrategy);
+
 console.log(process.env.NODE_ENV, heroku_mongodb_connect);
-if (process.env.NODE_ENV == "production") { 
-   app.use(express.static("client/build"))//if we're in prdxn, point and use "clint/build", appending the build folder that will be build when Heroku npm react app is called modularized by webpack served to the ui triaged by heroku deployment
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static("client/build"))//if we're in prdxn, point and use "clint/build", appending the build folder that will be build when Heroku npm react app is called modularized by webpack served to the ui triaged by heroku deployment
 }
 
 app.use(routes);
@@ -38,10 +60,10 @@ app.use(routes);
 
 const dandelion = require("node-dandelion");
 
- dandelion.configure({
-  app_key:API_KEY,
-  "app_id":"wikicards"
-}); 
+dandelion.configure({
+  app_key: API_KEY,
+  "app_id": "wikicards"
+});
 // brew services start mongo
 // Service `mongodb` already started, use `brew services restart mongodb` to restart.
 //  brew services restart mongodb
@@ -56,7 +78,7 @@ mongoose.connect( //connects to a remote WClive database named mongolab-adjacent
     useNewUrlParser: true
   }
 ).then(
-  client => { console.log("Database on.")}
+  client => { console.log("Database on.") }
 );
 
 

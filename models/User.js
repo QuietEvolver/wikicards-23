@@ -6,12 +6,12 @@ var userSchema = new Schema({
   username: { type: String, trim: true, required: "Username is Required"},
   // `password` is required and of type String
   password: { type: String, trim: true, required: "Password is Required",
-    validate: [
-      function(input) {
+    validate: {     //validation in backend -u/-p
+      validator: function(input) {
         return input.length >= 6 < 15;
       },
-      "Password should be longer."
-    ]},
+      message: "Password should be longer."
+    }},
     createdAt: {
       type: Date,
       default: Date.now
