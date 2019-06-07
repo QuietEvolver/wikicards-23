@@ -7,6 +7,7 @@ import API from "../utils/API";
 import Form from "../components/Form/index"; //parent Form Object that will house all of the components housed w/in
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Redirect } from "react-router-dom";
 
 
 export default class DeckPage extends Component {
@@ -16,7 +17,7 @@ export default class DeckPage extends Component {
   };
 
   createDeck = (name) => {  //deck:name
-    API.createDeck(name)
+    API.createDeck(name, this.props.location.state.user._id)
       .then(({ data }) => {
         console.log("data: ", data, data.length, "data.Length");
         if (data.length !== 0) {
@@ -28,16 +29,20 @@ export default class DeckPage extends Component {
   }
 
   componentDidMount() {
-    this.getAllDecks();
+    if (this.props.location.state){
+        this.getAllDecks();
+    }
   }
 
   getAllDecks = () => {
-    API.getAllDecks()
-      .then(res =>
+    console.log(this.props.location.state, "this.props.location.state");
+    API.getAllDecks( this.props.location.state.user._id )
+      .then(res => {
+        console.log(res.data, "res.data");
         this.setState({
-          decks: res.data
+          decks: res.data.deck
         })
-      )
+      })
       .catch(err => console.log(err));
   };
 
@@ -63,7 +68,7 @@ export default class DeckPage extends Component {
     console.log(this.state.decks.length);
     return (
       <div style={{ position: "relative" }}>
-
+        { this.props.location.state ? null : <Redirect to="/login" />}
         <div className="page-container">
           <div>
             <h1>Create and View Decks</h1>

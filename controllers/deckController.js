@@ -2,9 +2,15 @@ const db = require("../models");
 
 module.exports = {
     findAll: function (req, res) {
-        console.log("DeckControllers are working.js")
-        db.Deck.find()//req.query)
-            .then(dbDeck => res.json(dbDeck))
+        console.log("DeckControllers are working.js");
+        db.User.findById(req.query.id)
+            .populate("deck")
+            .exec()
+            .then(user => {
+                res.json({ deck:user.deck })
+            })
+        // db.Deck.find()//req.query)
+        //     .then(dbDeck => res.json(dbDeck))
             .catch(err => res.status(422).json(err));
     },
     findById: function (req, res) {
@@ -23,6 +29,7 @@ module.exports = {
             // }
       //  })
       console.log(req.body);
+    let newDbDeck; //create global var then assign to definition below
       db.Deck.findOne({ name: req.body.name })
       .exec()
       .then(dbDeck => { 
@@ -32,8 +39,12 @@ module.exports = {
       })
             // .then(dbDeck => dbDeck.save())
             .then(dbDeck => {
+                newDbDeck=dbDeck;
                 console.log("dbDeck create", dbDeck)
-                res.json(dbDeck)
+                return db.User.findByIdAndUpdate( req.body.id, { $addToSet: { deck:dbDeck._id }} );
+                
+            }) .then( () => { 
+                res.json( newDbDeck); //update user's deck then return new deck to client 
             })
             .catch(err => res.status(422).json(err));
     },

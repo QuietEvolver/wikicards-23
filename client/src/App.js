@@ -20,11 +20,10 @@ export default function App() {
 
       </header> */}
       <Router>{/*this is the tag for the JSX known as Router which enlists the all fo the Router files passed along and assigned by express*/}
-      <div> {/*jsx instrinsic element taht looks idential in name and fxn as html*/}
-        <Nav />{/*this is the Navigator tag where the home page will render and the Nav component page will encompass it's progrmatically assigned functionality*/}
+      <div>
+        <Route path="/" component={Nav} />
         <Switch>
           <Route exact path="/" component={DeckPage} /> {/* renders the home component & saved from ln15; the /renders the homepg when slash/route is hit */}
-          <Redirect from="/sign_up_r" to="/login"/> 
           <Route exact path="/sign_up" component={SignUp} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/saved" component={Saved} />

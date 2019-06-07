@@ -19,12 +19,12 @@ export default {
     console.log(cardData)
     return axios.post( hostName + "/api/card", cardData);  //return {} 
   }, 
-  createDeck: function(name) {
+  createDeck: function(name, id) {
     console.log(name)
-  return axios.post( hostName + "/api/deck", {name});  //deck:name
+  return axios.post( hostName + "/api/deck", {name, id});  //deck:name
   }, 
-  getAllDecks: function() {
-    return axios.get( hostName + "/api/deck"); 
+  getAllDecks: function( id ) {
+    return axios.get( hostName + "/api/deck?id=" + id ); //concats the id to query 
   }
   
 };  
