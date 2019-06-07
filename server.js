@@ -23,12 +23,12 @@ app.use(logger("dev"));//  middleware; Use morgan logger for logging requests
 app.use(express.urlencoded({ extended: true })); //Configure middleware: send and receive json necessary to be parsed from plain http which javascript doens't understand the incoming data as an Object.
 app.use(express.json());
 
-app.use(session({ secret:"secretPassword", resave:true, saveUninitialized: true })); //, cookie:{},create a user oauth session
+app.use(session({ secret: "secretPassword", resave: true, saveUninitialized: true })); //, cookie:{},create a user oauth session
 app.use(passport.initialize()); //initializes passport session init()fxn
 app.use(passport.session()); //initializes actual sessoin() fxn of passport post init fxn. 
 
 function handleLogin(username, password, done) {  //takes a callback "done"
-  console.log( "-u/-p", username, password);  
+  console.log("-u/-p", username, password);
   db.User.findOne({ username }, (err, User) => {
     // .then(( User ) => { passport =/= promises
     if (err) {
@@ -39,14 +39,42 @@ function handleLogin(username, password, done) {  //takes a callback "done"
     }
     if (User.password === password) {
       return done(null, User);
-    } 
+    }
     else {
-      return  done(null, false, { message: "Inccorect Password"});
+      return done(null, false, { message: "Inccorect Password" });
     }
   })
 }
 const loginStrategy = new localStrategy(handleLogin);//creating an instance of the prepkged strategy above
 passport.use(loginStrategy);
+
+//set up session start/end login aka 'Serializing' per active users/'Deserialize' non-active
+function serialize( User, done) {
+    done( null, User.id ) //passes desired User Id to serialize/keep track of
+}
+
+function deserialize(id, done) {
+  db.User.findById(id)
+    .then(User => {
+      done(null, User);
+    })
+    .catch(err => {
+      done(err, null);
+    });
+}
+
+passport.serializeUser( serialize );
+passport.deserializeUser( deserialize );
+
+app.post( "/login", passport.authenticate("local"), ( req, res ) => { 
+    const {username, _id} = req.user; //'user' provided by passport not db, so lowercase
+    res.json({ message: "Login Successful.", user:{ username, _id }});
+}) 
+
+app.get( "/logout", (req,res)=>{
+    req.logout(); //proveided by passport 
+    res.json ({ message: "Logout successful."});
+})
 
 console.log(process.env.NODE_ENV, heroku_mongodb_connect);
 
