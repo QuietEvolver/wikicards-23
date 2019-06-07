@@ -43,6 +43,10 @@ export default class Nav extends Component {
     window.removeEventListener("resize", this.updateWidth);
   }
 
+  componentDidUpdate() {
+     //code for nav state post logout for logging in to same user; Ln.63; Ln.75-78/84
+  }
+
   render() {
     const style = {
       color: "white", 
@@ -56,7 +60,7 @@ export default class Nav extends Component {
     }
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
-        { this.state.loggedOut ? <Redirect to="/login" /> : null }
+        {/* { this.state.loggedOut && this.props.location.state ? <Redirect to="/login" /> : null } */}
         <Link className="navbar-brand" to="/">
         <div style={style}>
         <div style={{marginTop:75}}>WikiCard</div>
@@ -68,16 +72,16 @@ export default class Nav extends Component {
             Sign Up
           </div>
         </Link>
-        { this.props.location.state ? 
+        {/* { this.props.location.state ? 
         <div onClick={this.handleLogout.bind(this)}>
           <div> Logout</div>
-        </div> : 
+        </div> :  */}
         <Link to="/login">
           <div>
             Login
           </div>
         </Link>
-        }
+        {/* } */}
         {/* <button //tbd in native
           onClick={this.toggleNav}
           className="navbar-toggler"
