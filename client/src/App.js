@@ -10,6 +10,7 @@ import NoMatch from "./pages/NoMatch";
 import DeckPage from "./pages/DeckPage";
 import DeckCards from "./pages/DeckCards";
 import Nav from "./components/Nav";
+import uiNav from "./components/Nav/uiNav";
 //import background from "./images/dnc-youn/bgy4.jpg"
 
 export default function App() {
@@ -21,7 +22,7 @@ export default function App() {
       </header> */}
       <Router>{/*this is the tag for the JSX known as Router which enlists the all fo the Router files passed along and assigned by express*/}
       <div>
-        <Route path="/" component={Nav} />
+        <Route path="/" component={uiNav} />
         <Switch>
           <Route exact path="/" component={DeckPage} /> {/* renders the home component & saved from ln15; the /renders the homepg when slash/route is hit */}
           <Route exact path="/sign_up" component={SignUp} />

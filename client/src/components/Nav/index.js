@@ -16,7 +16,7 @@ export default class Nav extends Component {
     axios.get( "/logout" )
     .then( res => {
       if(res.status===200){
-          this.setState({ loggedOut:true })
+          setTimeout(() => {this.props.history.push("/login")}, 1000)
       }
     })
   }
@@ -72,16 +72,16 @@ export default class Nav extends Component {
             Sign Up
           </div>
         </Link>
-        {/* { this.props.location.state ? 
-        <div onClick={this.handleLogout.bind(this)}>
+        { this.props.location.state ? 
+        <div style={{cursor:"pointer"}}onClick={this.handleLogout.bind(this)}>
           <div> Logout</div>
-        </div> :  */}
+        </div> : 
         <Link to="/login">
           <div>
             Login
           </div>
         </Link>
-        {/* } */}
+        }
         {/* <button //tbd in native
           onClick={this.toggleNav}
           className="navbar-toggler"

@@ -101,7 +101,7 @@ export default class Home extends Component { // function calls and defines the 
     return ( //to be returned when called upon in the given component space in the jsx
       <Container> {/*src/components/*/}
         <Jumbotron> {/* jumpotron displaying from the navigation navBar using the 'children' props for population*/}
-        <h1 style={{fontSize:"4em"}}>{this.props.location.state.deck.name}</h1>
+        <h1 style={{fontSize:"4em"}}>{this.props.location.state.deck.name? this.props.location.state.deck.name: ""} </h1>
           <h1 className="text-center"> {/* header class called in */}
             <strong>Wikipedia Cards Search</strong> {/*located in the App page as a jumbotron which calls in the children props*/}
           </h1>{/*closes the jsx tags*/}
