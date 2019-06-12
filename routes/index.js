@@ -4,9 +4,9 @@ const apiRoutes = require("./api");
 
 router.use("/api", apiRoutes); //hits the routes /api alonside the imported apiRoutes fxns for ./api
 
-// router.use((req, res) => //router file to build clientside in development and production
-//   res.sendFile(path.join(__dirname, "../client/build/index.html")) //the set (private(clientSide)) directory name aka _dirname, is 
-//   //built and populated as said path joining the files with the build
-// );
+router.use((req, res) => //router file to build clientside in development and production
+  res.sendFile(path.join(__dirname, "../client/build/index.html")) //the set (private(clientSide)) directory name aka _dirname, is 
+  //built and populated as said path joining the files with the client/build/index.html(temp)
+);
 
 module.exports = router; //exporting router api.path funcntions declared 
