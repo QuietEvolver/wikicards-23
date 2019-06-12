@@ -82,8 +82,8 @@ export default class Nav extends React.Component {
         {/*  <h1 style={{fontWeight:"bolder"}}> Your Deck Collections </h1>*/}
         </Link>
       <Tabs
-        value={this.state.value}
-        onChange={this.handleChange}
+        value={false}
+        // onChange={this.handleChange}
         indicatorColor="primary"
         textColor="primary"
         centered
