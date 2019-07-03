@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Jumbotron from "../components/Jumbotron";
+//import Jumbotron from "../components/Jumbotron";
 import Deck from "../components/Deck";
 import Footer from "../components/Footer";
 import API from "../utils/API";

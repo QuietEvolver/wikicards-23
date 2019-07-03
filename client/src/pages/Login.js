@@ -75,7 +75,7 @@ class Login extends React.Component {
                         />
                         <div onClick={this.handleSignIn}>
                             <Button variant="contained" color="primary" className={classes.button}>
-                                SignIn
+                                Sign In
                         </Button>
                         </div>
                     </form>
