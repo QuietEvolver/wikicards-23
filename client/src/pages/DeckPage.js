@@ -17,9 +17,8 @@ export default class DeckPage extends Component {
   };
 
   createDeck = (name) => {  //deck:name
-    API.createDeck(name, this.props.location.state.user._id)
+    API.createDeck(name, this.props.user._id)
       .then(({ data }) => {
-        console.log("data: ", data, data.length, "data.Length");
         if (data.length !== 0) {
           let newDecks = this.state.decks.slice();
           newDecks.push(data);
@@ -29,16 +28,14 @@ export default class DeckPage extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.state){
+    if (this.props.user){
         this.getAllDecks();
     }
   }
 
   getAllDecks = () => {
-    console.log(this.props.location.state, "this.props.location.state");
-    API.getAllDecks( this.props.location.state.user._id )
+    API.getAllDecks( this.props.user._id )
       .then(res => {
-        console.log(res.data, "res.data");
         this.setState({
           decks: res.data.deck
         })
@@ -65,10 +62,9 @@ export default class DeckPage extends Component {
 
 
   render() {
-    console.log(this.state.decks.length);
     return (
       <div style={{ position: "relative" }}>
-        { this.props.location.state ? null : <Redirect to="/login" />}
+        { this.props.user ? null : <Redirect to="/login" />}
         <div className="page-container">
           <div>
             <h1>Create and View Decks</h1>

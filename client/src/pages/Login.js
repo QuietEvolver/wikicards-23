@@ -33,8 +33,9 @@ class Login extends React.Component {
         axios.post("/login", { username: this.state.username, password: this.state.password })
             .then(res => {
                 this.setState({ user: res.data.user }) //gets user obj from data&sent to user obj & client
+                this.props.setUser(res.data.user)//when axios call is made, res sets state w returned info
                 setTimeout(() => {
-                    this.setState({ loggedIn: true }) //state needs to track login so as to redirect to DeckPg for deck creation
+                    this.props.history.goBack() //goes back to previous page visited
                 }, 1000)
             }).catch(err => {
                 console.log(err, "error");
@@ -45,9 +46,7 @@ class Login extends React.Component {
         const{classes}=this.props;
         return (
             <div>
-                {this.state.loggedIn ?
-                    <Redirect to={{ pathname: "/", state: { user: this.state.user } }} /> : null
-                }
+                
                 <Paper>
                     <form autoComplete="off" noValidate >
                         <TextField
@@ -75,7 +74,7 @@ class Login extends React.Component {
                         />
                         <div onClick={this.handleSignIn}>
                             <Button variant="contained" color="primary" className={classes.button}>
-                                SignIn
+                                Sign In
                         </Button>
                         </div>
                     </form>

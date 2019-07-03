@@ -21,9 +21,9 @@ const userController = require("./controllers/userController"); //import control
 app.use(cors()); //middleware to allow for cross-origin request(s)
 app.use(logger("dev"));//  middleware; Use morgan logger for logging requests
 app.use(express.urlencoded({ extended: true })); //Configure middleware: send and receive json necessary to be parsed from plain http which javascript doens't understand the incoming data as an Object.
-app.use(express.json());
-
-app.use(session({ secret: "secretPassword", resave: true, saveUninitialized: true })); //, cookie:{},create a user oauth session
+app.use(express.json())
+;
+app.use(session({ secret: "secretPassword", resave: true, saveUninitialized: true, cookie:{} })); //, cookie:{},create a user oauth session
 app.use(passport.initialize()); //initializes passport session init()fxn
 app.use(passport.session()); //initializes actual sessoin() fxn of passport post init fxn. 
 
