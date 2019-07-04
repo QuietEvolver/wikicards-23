@@ -19,7 +19,7 @@ const styles = {
 class SignUp extends React.Component {
     constructor(props) { //passes props down into contructor then passes into super to be inherited by react component
         super(props);
-        this.state = { username: "", password: "", signup: false }; //bind states to values (*2way binding Ln16/17)
+        this.state = { username: "", password: "", signup: false, message: "" }; //bind states to values (*2way binding Ln16/17)
         this.handleChange = this.handleChange.bind(this); //binding 'this' class
         this.handleSignIn = this.handleSignIn.bind(this);
     }
@@ -34,8 +34,19 @@ class SignUp extends React.Component {
         axios.post("/sign_up", { username: this.state.username, password: this.state.password })  //calls server route 
             .then(res => {
                 console.log("res", res); //should be redirected before this ever displays
-                this.setState({ signup: true });
-                // window.location.href="/sign_up_r"; //redirect handles extra logic to move from sign-up to login page
+                if (res.status !== 200){
+                    console.log(res.data);
+                    throw new Error(res.data.message)
+                }
+                this.setState({message:res.data.message})
+                setTimeout( ()=>{
+                   this.setState({ signup: true });
+                    // window.location.href="/sign_up_r"; //redirect handles extra logic to move from sign-up to login page 
+                }, 2000)
+            })
+            .catch( err => {
+                console.log(err);
+                this.setState({message:"User already exists. Please login or sign up with a new user."})
             })
     }
 
@@ -45,6 +56,7 @@ class SignUp extends React.Component {
             <div>
                 {this.state.signup ? <Redirect to="/login" /> : null}
                 <Paper>
+                    {this.state.message.length>0 ? <p>{this.state.message}</p>: null }
                     <form autoComplete="off" noValidate >
                         <TextField
                             required
@@ -71,7 +83,7 @@ class SignUp extends React.Component {
                         />
                         <div onClick={this.handleSignIn}>
                             <Button variant="contained" color="primary" className={classes.button}>
-                                SignIn
+                                Sign Up
                         </Button>
                         </div>
                     </form>
