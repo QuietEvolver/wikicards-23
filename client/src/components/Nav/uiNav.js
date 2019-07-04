@@ -23,7 +23,7 @@ const style = {
   justifyContent: "center"
 }
 
-export default class Nav extends React.Component {
+export default class UiNav extends React.Component {
 
   constructor(props) {
     super(props);
