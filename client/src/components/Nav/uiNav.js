@@ -91,7 +91,7 @@ export default class Nav extends React.Component {
         <Link to="/sign_up">
           <Tab label="Sign Up" />      
         </Link>
-        { this.props.location.state ? 
+        { Object.keys(this.props.user).length>0? 
         <div style={{cursor:"pointer"}}onClick={this.handleLogout.bind(this)}>
         <Tab label="Log Out" />
         </div> : 

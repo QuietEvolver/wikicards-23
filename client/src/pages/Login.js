@@ -35,6 +35,7 @@ class Login extends React.Component {
                 this.setState({ user: res.data.user }) //gets user obj from data&sent to user obj & client
                 this.props.setUser(res.data.user)//when axios call is made, res sets state w returned info
                 setTimeout(() => {
+                    console.log("Changing Pages");
                     this.props.history.goBack() //goes back to previous page visited
                 }, 1000)
             }).catch(err => {

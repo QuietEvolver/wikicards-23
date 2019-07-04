@@ -9,8 +9,8 @@ import Saved from "./pages/Saved";
 import NoMatch from "./pages/NoMatch";
 import DeckPage from "./pages/DeckPage";
 import DeckCards from "./pages/DeckCards";
-import Nav from "./components/Nav";
-import uiNav from "./components/Nav/uiNav";
+//import Nav from "./components/Nav";
+import UiNav from "./components/Nav/UiNav";
 //import background from "./images/dnc-youn/bgy4.jpg"
 
 export default function App() {
@@ -23,7 +23,9 @@ export default function App() {
       </header> */}
       <Router>{/*this is the tag for the JSX known as Router which enlists the all fo the Router files passed along and assigned by express*/}
       <div>
-        <Route path="/" component={uiNav} />
+        <Route path="/" render={({history})=>{
+          return <UiNav user={user} history={history} />
+        }} />
         <Switch>
           <Route exact path="/" render={()=>{
             return <DeckPage user={user}/>
