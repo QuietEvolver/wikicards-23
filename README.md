@@ -1,12 +1,5 @@
----
-title: 'WikiCards'
-disqus: hackmd
----
-
 WikiCards
 ===
-![Collections][./desktop/wikicard-collections.png]
-
 
 ## Table of Contents
 
