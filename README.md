@@ -2,9 +2,14 @@ WikiCards
 ===
 
 ## Table of Contents
-
-[TOC]
-
+===
+* [Description](#description)
+* [Setup/Installation Requirements](#setup-installation-requirements)
+* [Current Github Repository](#complete and in queue)
+* [Known Bugs](#known-bugs)
+* [Technologies Used](#technologies-used)
+* [Support](#support)
+* [License](#license)
 ## BDD/TDD
 
 ## Beginners Guide
