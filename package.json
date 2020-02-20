@@ -33,7 +33,7 @@
     "if-env": "^1.0.4",
     "jquery": "^3.4.1",
     "mongo": "^0.1.0",
-    "mongoose": "^5.5.11",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "node-dandelion": "^1.0.2",
     "passport": "^0.4.0",
