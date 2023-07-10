@@ -41,7 +41,7 @@ b. From CLI, add packages $:
     npm dotenv
 </pre>    
 
-## App Project Structure (*WIP)
+## App Project Structure
 ```
 |-- server/
 |  |-- server.js                            // The entry point for running the backend server locally, and main server for production
@@ -57,7 +57,7 @@ b. From CLI, add packages $:
 | -- src/                           // Entry for the React client side application
 ```
 
-User story
+Project Management
 ---
 
 ```gherkin=
