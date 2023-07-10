@@ -1,7 +1,7 @@
 {
-  "name": "wikicards",
+  "name": "wikicards-23",
   "version": "1.0.0",
-  "description": "",
+  "description": "https://github.com/QuietEvolver/wikicards-23.git",
   "main": "server.js",
   "scripts": {
     "start": "npm run start:prod",
@@ -12,7 +12,7 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
-  "author": "",
+  "author": "Vera Weikel",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^4.1.0",
