@@ -57,7 +57,7 @@ b. From CLI, add packages $:
 | -- src/                           // Entry for the React client side application
 ```
 
-Project Management
+Showcase User Story/Project Management Dev
 ---
 
 ```gherkin=
